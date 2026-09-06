@@ -1,0 +1,120 @@
+.footer {
+  border-top: 1px solid #e2e8f0;
+  padding: 32px 16px;
+  background-color: #fff;
+
+  @media (min-width: 640px) {
+    padding: 32px 24px;
+  }
+
+  @media (min-width: 1200px) {
+    padding: 32px;
+  }
+}
+
+.container {
+  // колонка на мобільних, рядок на десктопах
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @media (min-width: 640px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+
+  img {
+    width: auto;
+    height: 36px;
+    object-fit: contain;
+
+    @media (min-width: 1200px) {
+      height: 44px;
+    }
+  }
+}
+
+.navLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+
+  margin: 0;
+
+  padding: 0;
+
+  list-style: none;
+
+  @media (min-width: 640px) {
+    flex-direction: row;
+    align-items: center;
+    gap: 32px;
+  }
+}
+
+.link {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  color: #89939a;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #313237;
+  }
+}
+
+.toTopContainer {
+  // контейнер для "back to top"
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.toTopText {
+  // підказка біля кнопки "back to top"
+  font-size: 12px;
+  font-weight: 700;
+  color: #89939a;
+}
+
+.toTopButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  padding: 0;
+
+  transition: opacity 0.3s ease;
+
+  // стрілка в "back to top"
+  img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
