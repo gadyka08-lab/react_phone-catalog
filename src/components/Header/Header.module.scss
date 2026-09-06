@@ -1,0 +1,95 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 48px;
+  padding: 0 16px;
+
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  @media (min-width: 640px) {
+    height: 64px;
+    padding: 0 24px;
+  }
+}
+
+.leftContainer {
+  display: flex;
+  align-items: center;
+}
+
+.nav {
+  // стандарт меню на моб. => через бургер
+  display: none;
+
+  //  нав на таб. та десктоп.
+  @media (min-width: 640px) {
+    display: flex;
+    gap: 24px;
+    margin-left: 32px;
+  }
+
+  @media (min-width: 1200px) {
+    gap: 32px;
+    margin-left: 64px;
+  }
+}
+
+.link {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  color: #89939a;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+
+  transition: color 0.3s ease;
+
+  &.active {
+    color: #313237;
+  }
+
+  &:hover {
+    color: #313237;
+  }
+}
+
+.rightContainer {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+
+  @media (min-width: 1200px) {
+    gap: 24px;
+  }
+}
+
+.iconLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+
+  img {
+    width: auto;
+    height: 36px;
+    object-fit: contain;
+
+    @media (min-width: 1200px) {
+      height: 44px;
+    }
+  }
+}
