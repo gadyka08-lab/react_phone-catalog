@@ -1,30 +1,35 @@
 // обгортка для всього слайдера та індикаторів-рисочок знизу
 .sliderWrapper {
-  display: flex; // рівняємо елементи у вертикальну колонку
-  flex-direction: column; // розташовуємо слайдер та рисочки в колонну
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0 16px;
+
+  @media (min-width: 640px) {
+    padding: 0 24px;
+  }
 }
 
 // контейнер самого слайдера (картинки та кнопки)
 .bannerSlider {
-  position: relative; // контейнер відносний, щоб кнопки розташувалися всередині нього
+  position: relative;
   width: 100%;
   height: auto;
-  aspect-ratio: 1 / 1; // мобільна версія за референсом => квадрат
+  aspect-ratio: 1 / 1;
   overflow: hidden;
+  box-sizing: border-box;
   border-radius: 8px;
-  box-sizing: border-box; // щоб не було горизонтальної прокрутки з-за паддінгів
 
-  // для таблетів
   @media (min-width: 640px) {
-    aspect-ratio: unset;
     height: 300px;
-
-    padding-left: 48px;
+    aspect-ratio: unset;
     padding-right: 48px;
+    padding-left: 48px;
   }
 
-  // для десктопів
   @media (min-width: 1024px) {
     height: 400px;
   }
@@ -33,10 +38,8 @@
 // контейнер зі всіма слайдами в баннері
 .slides {
   display: flex;
-  height: 100%;
   width: 100%;
-
-  // на телефоні => скрол пальцем/мишею
+  height: 100%;
   overflow-x: auto;
   scroll-snap-type: x mandatory; // прилипання до країв слайдів при скролі
   scrollbar-width: none;
@@ -68,19 +71,17 @@
 .nextButton {
   position: absolute; // позиція поверх банера
   top: 0;
-  height: 100%;
+  display: none; // за замовчуванням приховані
   width: 32px;
-  display: flex; // для центрування стрілочки всередині
-  align-items: center; // центр. стрілку по вертикалі
-  justify-content: center; // центр. стрілку по горизонталі
+  height: 100%;
+  z-index: 10;
   background-color: transparent;
   border: none;
   color: #313237;
   cursor: pointer;
-  z-index: 10;
   transition: background-color 0.3s ease;
-
-  display: none;
+  align-items: center; // центр. стрілку по вертикалі
+  justify-content: center; // центр. стрілку по горизонталі
 
   // стрілки видно починаючи з таблетів
   @media (min-width: 640px) {
@@ -107,8 +108,8 @@
 // контейнер для нижніх індикаторів-рисочок
 .dots {
   display: flex; // ставимо рисочки в один рядок
-  justify-content: center; // центруємо горизонтально під слайдером
   gap: 8px;
+  justify-content: center; // центруємо горизонтально під слайдером
   margin-top: 12px;
 }
 
@@ -122,13 +123,12 @@
   cursor: pointer;
   transition: background-color 0.3s ease, width 0.3s ease;
 
-
   &:hover {
     background-color: #b4b5b7;
   }
 
   &.active {
-    background-color: #313237;
     width: 24px;
+    background-color: #313237;
   }
 }

@@ -38,12 +38,13 @@ export const BannerSlider = () => {
     if (event.key === 'ArrowRight') {
       handleNext();
     } else if (event.key === 'ArrowLeft') {
-      handlePrev(); 
+      handlePrev();
+    }
   };
 
   return (
-    // контейнер для слайдера та рисочок-індикаторів
-    <div className={styles.sliderWrapper}>
+    // семантичний контейнер для слайдера та рисочок-індикаторів
+    <section className={styles.sliderWrapper}>
       <div className={styles.bannerSlider}
         tabIndex={0}
         onKeyDown={handleKeyDown}
@@ -78,6 +79,6 @@ export const BannerSlider = () => {
           />
         ))}
       </div>
-    </div>
+    </section>
   );
 };
