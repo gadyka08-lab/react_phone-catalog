@@ -1,0 +1,106 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  margin: 64px auto 0;
+  box-sizing: border-box;
+  padding: 0 16px;
+  overflow: hidden;
+
+  @media (min-width: 640px) {
+    padding: 0 24px;
+  }
+}
+
+.categoriesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+
+  @media (min-width: 640px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.categoryCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: transparent;
+  padding: 0;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+
+  @media (min-width: 640px) {
+    flex: 1;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    cursor: pointer;
+  }
+}
+
+.imageWrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.img {
+  width: 100%;
+  max-width: 288px;
+  height: auto;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+  object-position: -20px 45px;
+
+  @media (min-width: 640px) {
+    max-width: 187px;
+  }
+
+  @media (min-width: 1024px) {
+    max-width: 368px;
+  }
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  font-family: 'Mont', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 120%;
+  color: #212121;
+  margin: 0;
+
+  @media (min-width: 640px) {
+    font-size: 20px;
+  }
+}
+
+.categoryCard h3 {
+  font-family: 'Mont', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  color: #89939A;
+  margin: 0;
+
+  @media (min-width: 640px) {
+    font-size: 14px;
+    line-height: 21px;
+  }
+}

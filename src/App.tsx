@@ -5,6 +5,8 @@ import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
 import { BrandNewModels } from './components/BrandNewModels/BrandNewModels';
 import { Product } from './types/Product';
+import { ShopByCategory } from './components/ShopByCategory/ShopByCategory';
+
 
 export const App = () => {
   // стан для зберігання масиву товарів
@@ -23,7 +25,7 @@ export const App = () => {
       <BannerSlider />
       {/* передаємо товари у пропс */}
       <BrandNewModels products={products} />
-      <h1>Product Catalog</h1>
+      <ShopByCategory />
       <Footer />
     </div>
   );

@@ -2,13 +2,15 @@
   width: 100%;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
   width: 100%;
   max-width: 1200px;
   height: 48px;
@@ -28,10 +30,8 @@
 }
 
 .nav {
-  // стандарт меню на моб. => через бургер
   display: none;
 
-  //  нав на таб. та десктоп.
   @media (min-width: 640px) {
     display: flex;
     gap: 24px;
@@ -44,6 +44,7 @@
   }
 }
 
+/* Десктопні посилання */
 .link {
   font-family: inherit;
   font-size: 12px;
@@ -52,8 +53,20 @@
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-
   transition: color 0.3s ease;
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #313237;
+    transition: width 0.3s ease;
+  }
 
   &.active {
     color: #313237;
@@ -62,9 +75,23 @@
   &:hover {
     color: #313237;
   }
+
+  &:hover::after {
+    width: 100%;
+  }
 }
 
 .rightContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  @media (min-width: 1200px) {
+    gap: 24px;
+  }
+}
+
+.iconsWrapper {
   display: flex;
   gap: 16px;
   align-items: center;
@@ -75,13 +102,30 @@
 }
 
 .iconLink {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  padding-bottom: 4px;
   transition: opacity 0.3s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #313237;
+    transition: width 0.3s ease;
+  }
 
   &:hover {
     opacity: 0.7;
+  }
+
+  &:hover::after {
+    width: 100%;
   }
 }
 
@@ -97,6 +141,143 @@
 
     @media (min-width: 1200px) {
       height: 44px;
+    }
+  }
+}
+
+.burgerButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+
+  @media (min-width: 640px) {
+    display: none;
+  }
+}
+
+.menuOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-in-out;
+  box-sizing: border-box;
+
+  &.open {
+    transform: translateY(0);
+  }
+
+  @media (min-width: 640px) {
+    display: none;
+  }
+}
+
+.menuHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 48px;
+  padding: 0 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px;
+  color: #313237;
+}
+
+.menuNav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 24px;
+}
+
+/* лінкі у сайдбарі */
+.menuLink {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  color: #89939a;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition: color 0.2s;
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #313237;
+    transition: width 0.3s ease;
+  }
+
+  &.active {
+    color: #313237;
+  }
+
+  &:hover {
+    color: #313237;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+}
+
+.menuFooter {
+  display: flex;
+  border-top: 1px solid #e2e8f0;
+  height: 64px;
+
+  .footerIcon {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border-right: 1px solid #e2e8f0;
+    background-color: #fff;
+    transition: background-color 0.2s ease;
+
+    &:last-child {
+      border-right: none;
+    }
+
+    &:hover {
+      background-color: #fafbfc;
+    }
+
+    img {
+      height: 20px;
+      width: auto;
     }
   }
 }

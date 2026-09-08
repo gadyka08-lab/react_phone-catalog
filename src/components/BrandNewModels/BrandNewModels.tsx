@@ -67,7 +67,7 @@ export const BrandNewModels = ({ products = [] }: BrandNewModelsProps) => {
   // загальна секція що вміщає тайтл, навігацію, картки
   <section className={styles.section}>
     <div className={styles.header}>
-      <h2 className={styles.title}>Brand new models</h2>
+      <h2 className={styles.sectionTitle}>Brand new {' '} models</h2>
 
       {/* кнопки-стрілки вліво та вправо */}
       <div className={styles.buttons}>

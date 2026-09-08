@@ -45,6 +45,7 @@ export const BannerSlider = () => {
   return (
     // семантичний контейнер для слайдера та рисочок-індикаторів
     <section className={styles.sliderWrapper}>
+      <h1>Welcome to Nice Gadgets store!</h1>
       <div className={styles.bannerSlider}
         tabIndex={0}
         onKeyDown={handleKeyDown}
