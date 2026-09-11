@@ -1,12 +1,12 @@
 .productCard {
   display: flex;
   flex-direction: column;
-  
-  // ширина рівно на 4 стовпця з урах. 3 гапів по 16px ((100% - 3 * 16px) / 4)
+  justify-content: space-between; // Розподіляє елементи від верху до низу
+
   flex: 0 0 calc((100% - 48px) / 4);
   min-width: 230px;
   max-width: 272px;
-  height: 506px;
+  height: 506px; // 👈 Повертаємо повну висоту картки
   padding: 32px 24px 24px;
   border: 1px solid #e2e8f0;
 
@@ -26,10 +26,8 @@
   display: flex;
   width: 100%;
   height: 196px;
-
   align-items: center;
   justify-content: center;
-  margin-bottom: 24px;
 }
 
 .image {
@@ -38,12 +36,15 @@
   object-fit: contain;
 }
 
+.titleWrapper {
+  // без зайвих відступів, висота тримається за рахунок гнучкого контейнера
+}
+
 .title {
   font-size: 14px;
   font-weight: 500;
   line-height: 21px;
-
-  margin: 0 0 8px;
+  margin: 0;
   color: #313237;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -57,7 +58,6 @@
   display: flex;
   gap: 8px;
   align-items: center;
-  margin-bottom: 16px;
 }
 
 .price {
@@ -76,16 +76,16 @@
 .divider {
   width: 100%;
   height: 1px;
-  margin-bottom: 16px;
   background-color: #e2e8f0;
 }
 
 .specs {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
   gap: 8px;
-  margin-bottom: 24px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
 .specRow {
@@ -112,18 +112,28 @@
 .addToCartButton {
   flex-grow: 1;
   height: 40px;
-  border: none;
+  border: 1px solid #313237;
   background-color: #313237;
   font-weight: 600;
   color: #fff;
-
   border-radius: 4px;
   font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 
   &:hover {
     background-color: #4e5058;
+    border-color: #4e5058;
+  }
+
+  &.added {
+    background-color: #fff;
+    color: #27ae60;
+    border-color: #27ae60;
+
+    &:hover {
+      background-color: #f4fcf7;
+    }
   }
 }
 
@@ -133,9 +143,7 @@
   display: flex;
   border: 1px solid #b4b5b7;
   background-color: transparent;
-
   cursor: pointer;
-
   border-radius: 4px;
   align-items: center;
   justify-content: center;
@@ -144,4 +152,15 @@
   &:hover {
     border-color: #313237;
   }
+}
+
+.favoriteIcon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.titleLink {
+  text-decoration: none;
+  color: inherit;
 }

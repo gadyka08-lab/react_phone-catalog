@@ -2,6 +2,7 @@
 export interface Product {
   id: number;
   name: string;
+  itemId: string;
   fullPrice: number;
   price: number;
   screen: string;
@@ -9,4 +10,5 @@ export interface Product {
   ram: string;
   year: number;
   image: string;
+  images: string[];
 }

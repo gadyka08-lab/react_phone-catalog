@@ -1,17 +1,22 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styles from './ProductCard.module.scss';
 import { Product } from '../../types/Product';
 
 interface ProductCardProps {
   product: Product;
-  price?: number; // пропс для гнучкого керування ціною в різних секціях
+  price?: number;
 }
 
 export const ProductCard = ({ product, price: salePrice }: ProductCardProps) => {
+  const [isInCart, setIsInCart] = useState(false);
+  const [isInFavorite, setIsInFavorite] = useState(false);
+
   const {
     id,
+    itemId,
     name,
     fullPrice,
-    price,
     screen,
     capacity,
     ram,
@@ -22,17 +27,33 @@ export const ProductCard = ({ product, price: salePrice }: ProductCardProps) => 
   const displayPrice = salePrice !== undefined ? salePrice : fullPrice;
   const hasDiscount = salePrice !== undefined && salePrice < fullPrice;
 
+  const handleAddToCart = () => {
+    setIsInCart(!isInCart);
+  };
+
+  const handleAddToFavorite = () => {
+    setIsInFavorite(!isInFavorite);
+  };
+
   return (
     <div className={styles.productCard}>
-      {/* контенер зображення товару */}
-      <div className={styles.imageContainer}>
-        <img src={image} alt={name} className={styles.image} />
+      {/* обгортка зображення з посиланням */}
+      <Link to={`/product/${itemId}`} className={styles.imageContainer}>
+        <img
+          src={image.startsWith('/') ? image : `/${image}`}
+          alt={name}
+          className={styles.image}
+        />
+      </Link>
+
+      {/* обгортка назви з посиланням */}
+      <div className={styles.titleWrapper}>
+        <Link to={`/product/${itemId}`} className={styles.titleLink}>
+          <h3 className={styles.title}>{name}</h3>
+        </Link>
       </div>
 
-      {/* назва товару*/}
-      <h3 className={styles.title}>{name}</h3>
-
-      {/* ціни: основна та закреслена повна коли є знижка */}
+      {/* обгортка ціни */}
       <div className={styles.priceWrapper}>
         <span className={styles.price}>${displayPrice}</span>
         {hasDiscount && (
@@ -42,7 +63,7 @@ export const ProductCard = ({ product, price: salePrice }: ProductCardProps) => 
 
       <div className={styles.divider} />
 
-      {/* інші характеристики */}
+      {/* обгортка характеристик */}
       <ul className={styles.specs}>
         <li className={styles.specRow}>
           <span className={styles.specLabel}>Screen</span>
@@ -62,10 +83,25 @@ export const ProductCard = ({ product, price: salePrice }: ProductCardProps) => 
         </li>
       </ul>
 
-      {/* кнопки додавання в кошик та вибране */}
+      {/* обгортка кнопок */}
       <div className={styles.buttonsWrapper}>
-        <button className={styles.addToCartButton}>Add to cart</button>
-        <button className={styles.favoriteButton}>♡</button>
+        <button
+          className={`${styles.addToCartButton} ${isInCart ? styles.added : ''}`}
+          onClick={handleAddToCart}
+        >
+          {isInCart ? 'Added to cart' : 'Add to cart'}
+        </button>
+        <button
+          className={`${styles.favoriteButton} ${isInFavorite ? styles.activeFavorite : ''}`}
+          onClick={handleAddToFavorite}
+          aria-label="Favorites"
+        >
+          <img
+            src={isInFavorite ? "/img/icons/Favourites Filled (Heart Like).png" : "/img/icons/Favourites (Heart Like).png"}
+            alt="Favorite icon"
+            className={styles.favoriteIcon}
+          />
+        </button>
       </div>
     </div>
   );
