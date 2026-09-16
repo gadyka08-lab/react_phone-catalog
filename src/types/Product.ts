@@ -1,4 +1,3 @@
-
 export interface Product {
   id: number;
   name: string;
@@ -11,4 +10,5 @@ export interface Product {
   year: number;
   image: string;
   images: string[];
+  category: 'phones' | 'tablets' | 'accessories';
 }

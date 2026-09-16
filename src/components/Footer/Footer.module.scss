@@ -1,6 +1,6 @@
 .footer {
-  border-top: 1px solid #e2e8f0;
   padding: 32px 16px;
+  border-top: 1px solid #e2e8f0;
   background-color: #fff;
 
   @media (min-width: 640px) {
@@ -16,8 +16,8 @@
   // колонка на мобільних, рядок на десктопах
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: 32px;
+  align-items: flex-start;
 
   max-width: 1200px;
   margin: 0 auto;
@@ -48,19 +48,18 @@
 .navLinks {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: 16px;
+  align-items: flex-start;
 
   margin: 0;
-
   padding: 0;
 
   list-style: none;
 
   @media (min-width: 640px) {
     flex-direction: row;
-    align-items: center;
     gap: 32px;
+    align-items: center;
   }
 }
 
@@ -83,8 +82,8 @@
 .toTopContainer {
   // контейнер для "back to top"
   display: flex;
-  align-items: center;
   gap: 16px;
+  align-items: center;
 }
 
 .toTopText {
@@ -95,15 +94,16 @@
 }
 
 .toTopButton {
+  cursor: pointer;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border: none;
-  background: transparent;
-  cursor: pointer;
-
   padding: 0;
+  border: none;
+
+  background: transparent;
 
   transition: opacity 0.3s ease;
 

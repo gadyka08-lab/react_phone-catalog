@@ -1,9 +1,12 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import { Product } from '../../types/Product';
 import styles from './ProductDetailsPage.module.scss';
 import { ProductDetails } from '../../types/productsDetails';
 import { ProductCard } from '../../components/ProductCard/ProductCard';
+import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
+import { useCart } from '../../Context/CartContext';
+import { useFavorites } from '../../Context/FavoritesContext';
 
 interface ProductDetailsPageProps {
   products: ProductDetails[];
@@ -11,45 +14,87 @@ interface ProductDetailsPageProps {
 }
 
 const colorMap: Record<string, string> = {
-  black: '#212121', green: '#4E5C50', yellow: '#F9D749', white: '#F0F0F0',
-  purple: '#B8AFE6', red: '#BA0C2F', blue: '#215C8C', sierrablue: '#9BB5CE',
-  graphite: '#414246', silver: '#E3E4E5', gold: '#FAE7CF', midnight: '#191F28',
-  starlight: '#F0EDE6', pink: '#F8C8D4', 'sky blue': '#87CEEB', 'rose gold': '#E6C7C2',
-  rosegold: '#E6C7C2', 'space gray': '#6E6D6A', spacegray: '#6E6D6A', spaceblack: '#2E2E30',
+  black: '#212121',
+  green: '#4E5C50',
+  yellow: '#F9D749',
+  white: '#F0F0F0',
+  purple: '#B8AFE6',
+  red: '#BA0C2F',
+  blue: '#215C8C',
+  sierrablue: '#9BB5CE',
+  graphite: '#414246',
+  silver: '#E3E4E5',
+  gold: '#FAE7CF',
+  midnight: '#191F28',
+  starlight: '#F0EDE6',
+  pink: '#F8C8D4',
+  'sky blue': '#87CEEB',
+  'rose gold': '#E6C7C2',
+  rosegold: '#E6C7C2',
+  'space gray': '#6E6D6A',
+  spacegray: '#6E6D6A',
+  spaceblack: '#2E2E30',
 };
 
-export const ProductDetailsPage = ({ products, baseProducts = [] }: ProductDetailsPageProps) => {
+export const ProductDetailsPage = ({
+  products,
+  baseProducts = [],
+}: ProductDetailsPageProps) => {
   const { productId } = useParams<{ productId: string }>();
+  const navigate = useNavigate();
   const product = products.find(p => p.id === productId);
 
   const baseProduct = baseProducts.find(
-    bp => bp.itemId === product?.itemId || bp.itemId === productId || String(bp.id) === productId
+    bp =>
+      bp.itemId === product?.itemId ||
+      bp.itemId === productId ||
+      String(bp.id) === productId,
   );
 
+  // Підключаємо хуки контекстів з оригінальними назвами
+  const { cartItems, addToCart, handleRemove } = useCart();
+  const { favorites, toggleFavorite } = useFavorites(); // Використовуй той метод, що є в твоєму FavoritesContext
+
   const [selectedImage, setSelectedImage] = useState(0);
-  const [isInCart, setIsInCart] = useState(false);
-  const [isInFavorite, setIsInFavorite] = useState(false);
+
+  // Перевірка наявності товарів (порівнюємо ID як рядки)
+  const currentId = String(baseProduct?.id || product?.id || productId);
+  const isInCart = cartItems.some(item => String(item.id) === currentId);
+  const isInFavorite = favorites.includes(currentId);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  const recommendedItems = baseProducts.filter(bp => bp.itemId !== product?.itemId).slice(0, 20);
+  const recommendedItems = [...baseProducts]
+    .filter(bp => bp.itemId !== product?.itemId)
+    .sort(() => 0.5 - Math.random())
+    .slice(0, 10);
 
   const checkScrollPosition = () => {
     const container = containerRef.current;
-    if (!container) return;
+
+    if (!container) {
+      return;
+    }
+
     const { scrollLeft, scrollWidth, clientWidth } = container;
+
     setCanScrollLeft(scrollLeft > 1);
     setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1);
   };
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+
+    if (!container) {
+      return;
+    }
+
     checkScrollPosition();
     container.addEventListener('scroll', checkScrollPosition);
     window.addEventListener('resize', checkScrollPosition);
+
     return () => {
       container.removeEventListener('scroll', checkScrollPosition);
       window.removeEventListener('resize', checkScrollPosition);
@@ -60,25 +105,75 @@ export const ProductDetailsPage = ({ products, baseProducts = [] }: ProductDetai
     if (containerRef.current) {
       const { scrollLeft, clientWidth } = containerRef.current;
       const scrollAmount = clientWidth * 0.75;
+
       containerRef.current.scrollTo({
-        left: direction === 'left' ? scrollLeft - scrollAmount : scrollLeft + scrollAmount,
+        left:
+          direction === 'left'
+            ? scrollLeft - scrollAmount
+            : scrollLeft + scrollAmount,
         behavior: 'smooth',
       });
     }
   };
 
   if (!product) {
-    return <div className={styles.notFound}>Product not found</div>;
+    return (
+      <div className={styles.container}>
+        <Link to="/" className={styles.backLink}>
+          &lt; Back to home
+        </Link>
+        <div className={styles.notFound}>
+          <img
+            src="/img/product-not-found.png"
+            alt="Product not found"
+            className={styles.notFoundImage}
+          />
+          <h2>Product not found</h2>
+        </div>
+      </div>
+    );
   }
 
-  const handleAddToCart = () => setIsInCart(!isInCart);
-  const handleAddToFavorite = () => setIsInFavorite(!isInFavorite);
+  // Обробники з використанням оригінальних методів
+  const handleAddToCartClick = () => {
+    if (baseProduct) {
+      if (isInCart) {
+        handleRemove(baseProduct.id);
+      } else {
+        addToCart(baseProduct.id);
+      }
+    }
+  };
+
+  const handleAddToFavoriteClick = () => {
+    if (baseProduct) {
+      toggleFavorite(String(baseProduct.id));
+    }
+  };
+
+  const categoryName = product.category
+    ? product.category.charAt(0).toUpperCase() + product.category.slice(1)
+    : 'Catalog';
 
   return (
     <div className={styles.container}>
-      <div className={styles.backLink}>
-        <Link to="/">Back to home</Link>
-      </div>
+      <Breadcrumbs
+        items={[
+          { label: categoryName, path: `/${product.category}` },
+          { label: product.name },
+        ]}
+      />
+
+      <Link
+        to="#"
+        onClick={e => {
+          e.preventDefault();
+          navigate(-1);
+        }}
+        className={styles.backLink}
+      >
+        &lt; Back
+      </Link>
 
       <h1 className={styles.title}>{product.name}</h1>
 
@@ -104,16 +199,18 @@ export const ProductDetailsPage = ({ products, baseProducts = [] }: ProductDetai
           </div>
 
           <div className={styles.info}>
-            {/* кольори що є в доступі */}
-            <div className={styles.section} style={{ marginBottom: '24px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div className={`${styles.section} ${styles.colorSection}`}>
+              <div className={styles.colorHeader}>
                 <span className={styles.sectionTitle}>Available colors</span>
-                <span className={styles.productId}>ID: {baseProduct?.id ?? '...'}</span>
+                <span className={styles.productId}>
+                  ID: {baseProduct?.id ?? '...'}
+                </span>
               </div>
               <div className={styles.colorsList}>
-                {product.colorsAvailable?.map((colorOption) => {
+                {product.colorsAvailable?.map(colorOption => {
                   const colorId = `${product.namespaceId}-${product.capacity.toLowerCase()}-${colorOption}`;
                   const backgroundColor = colorMap[colorOption] || colorOption;
+
                   return (
                     <Link
                       key={colorOption}
@@ -127,15 +224,14 @@ export const ProductDetailsPage = ({ products, baseProducts = [] }: ProductDetai
               </div>
             </div>
 
-            {/* риска */}
-            <div className={styles.divider} style={{ marginBottom: '24px' }} />
+            <div className={`${styles.divider} ${styles.dividerColorMargin}`} />
 
-            {/* ємність що є в доступі */}
-            <div className={styles.section} style={{ marginBottom: '24px' }}>
+            <div className={`${styles.section} ${styles.capacitySection}`}>
               <span className={styles.sectionTitle}>Select capacity</span>
               <div className={styles.capacityList}>
-                {product.capacityAvailable?.map((cap) => {
+                {product.capacityAvailable?.map(cap => {
                   const capacityId = `${product.namespaceId}-${cap.toLowerCase()}-${product.color}`;
+
                   return (
                     <Link
                       key={cap}
@@ -149,35 +245,40 @@ export const ProductDetailsPage = ({ products, baseProducts = [] }: ProductDetai
               </div>
             </div>
 
-            {/* риска */}
-            <div className={styles.divider} style={{ marginBottom: '32px' }} />
+            <div
+              className={`${styles.divider} ${styles.dividerCapacityMargin}`}
+            />
 
-            {/* вартість(зі знижкою чи без) */}
-            <div className={styles.section} style={{ marginBottom: '16px' }}>
+            <div className={`${styles.section} ${styles.priceSection}`}>
               <div className={styles.priceBlock}>
                 <span className={styles.price}>${product.priceDiscount}</span>
                 {product.priceRegular > product.priceDiscount && (
-                  <span className={styles.fullPrice}>${product.priceRegular}</span>
+                  <span className={styles.fullPrice}>
+                    ${product.priceRegular}
+                  </span>
                 )}
               </div>
             </div>
 
-            {/* кнопка кошика та обраного */}
-            <div className={styles.section} style={{ marginBottom: '32px' }}>
+            <div className={`${styles.section} ${styles.actionsSection}`}>
               <div className={styles.actions}>
                 <button
                   className={`${styles.addToCartButton} ${isInCart ? styles.added : ''}`}
-                  onClick={handleAddToCart}
+                  onClick={handleAddToCartClick}
                 >
                   {isInCart ? 'Added to cart' : 'Add to cart'}
                 </button>
                 <button
                   className={`${styles.favoriteButton} ${isInFavorite ? styles.activeFavorite : ''}`}
-                  onClick={handleAddToFavorite}
+                  onClick={handleAddToFavoriteClick}
                   aria-label="Favorites"
                 >
                   <img
-                    src={isInFavorite ? "/img/icons/Favourites Filled (Heart Like).png" : "/img/icons/Favourites (Heart Like).png"}
+                    src={
+                      isInFavorite
+                        ? '/img/icons/Favourites Filled (Heart Like).png'
+                        : '/img/icons/Favourites (Heart Like).png'
+                    }
                     alt="Favorite icon"
                     className={styles.favoriteIcon}
                   />
@@ -185,25 +286,33 @@ export const ProductDetailsPage = ({ products, baseProducts = [] }: ProductDetai
               </div>
             </div>
 
-            {/* коротка інфа */}
             <div className={styles.specs}>
-              <p><strong>Screen:</strong> {product.screen}</p>
-              <p><strong>Resolution:</strong> {product.resolution}</p>
-              <p><strong>Processor:</strong> {product.processor}</p>
-              <p><strong>RAM:</strong> {product.ram}</p>
+              <p>
+                <strong>Screen:</strong> {product.screen}
+              </p>
+              <p>
+                <strong>Resolution:</strong> {product.resolution}
+              </p>
+              <p>
+                <strong>Processor:</strong> {product.processor}
+              </p>
+              <p>
+                <strong>RAM:</strong> {product.ram}
+              </p>
             </div>
           </div>
         </div>
 
-        {/* ебаут та повна технічна */}
         <div className={styles.detailsGrid}>
           <div className={styles.aboutSection}>
             <h2 className={styles.aboutHeader}>About</h2>
-            {product.description?.map((section) => (
+            {product.description?.map(section => (
               <div key={section.title} className={styles.aboutBlock}>
                 <h3 className={styles.aboutTitle}>{section.title}</h3>
                 {section.text.map((paragraph, index) => (
-                  <p key={index} className={styles.aboutText}>{paragraph}</p>
+                  <p key={index} className={styles.aboutText}>
+                    {paragraph}
+                  </p>
                 ))}
               </div>
             ))}
@@ -212,23 +321,38 @@ export const ProductDetailsPage = ({ products, baseProducts = [] }: ProductDetai
           <div className={styles.specsSection}>
             <h2 className={styles.aboutHeader}>Tech specs</h2>
             <div className={styles.specs}>
-              <p><strong>Screen:</strong> {product.screen}</p>
-              <p><strong>Resolution:</strong> {product.resolution}</p>
-              <p><strong>Processor:</strong> {product.processor}</p>
-              <p><strong>RAM:</strong> {product.ram}</p>
-              <p><strong>Built in memory:</strong> {product.capacity}</p>
-              <p><strong>Camera:</strong> {product.camera}</p>
-              <p><strong>Zoom:</strong> {product.zoom}</p>
-              <p><strong>Cell:</strong> {product.cell?.join(', ')}</p>
+              <p>
+                <strong>Screen:</strong> {product.screen}
+              </p>
+              <p>
+                <strong>Resolution:</strong> {product.resolution}
+              </p>
+              <p>
+                <strong>Processor:</strong> {product.processor}
+              </p>
+              <p>
+                <strong>RAM:</strong> {product.ram}
+              </p>
+              <p>
+                <strong>Built in memory:</strong> {product.capacity}
+              </p>
+              <p>
+                <strong>Camera:</strong> {product.camera}
+              </p>
+              <p>
+                <strong>Zoom:</strong> {product.zoom}
+              </p>
+              <p>
+                <strong>Cell:</strong> {product.cell?.join(', ')}
+              </p>
             </div>
           </div>
         </div>
 
-        {/* рекомендації */}
         <div className={styles.recommendedSection}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+          <div className={styles.recommendedHeader}>
             <h2 className={styles.recommendedTitle}>You may also like</h2>
-            <div style={{ display: 'flex', gap: '8px' }}>
+            <div className={styles.arrowButtonsGroup}>
               <button
                 className={`${styles.arrowButton} ${!canScrollLeft ? styles.disabled : ''}`}
                 onClick={() => scroll('left')}
@@ -250,11 +374,7 @@ export const ProductDetailsPage = ({ products, baseProducts = [] }: ProductDetai
 
           <div className={styles.recommendedSlider} ref={containerRef}>
             {recommendedItems.map(item => (
-              <ProductCard
-                key={item.id}
-                product={item}
-                price={item.price}
-              />
+              <ProductCard key={item.id} product={item} price={item.price} />
             ))}
           </div>
         </div>

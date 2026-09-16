@@ -14,19 +14,23 @@ export const HotPrice = ({ products = [] }: HotPriceProps) => {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  // Сортування за найбільшою знижкою (fullPrice - price)
+  // сорт за найбільшою знижкою (fullPrice - price)
   const displayedProducts = safeProducts
     .slice() // копіюємо масив, щоб не мутувати
     .sort((a, b) => {
       const discountA = (a.fullPrice ?? 0) - (a.price ?? 0);
       const discountB = (b.fullPrice ?? 0) - (b.price ?? 0);
+
       return discountB - discountA; // від найбільшої знижки до найменшої
     })
     .slice(0, 20);
 
   const checkScrollPosition = () => {
     const container = containerRef.current;
-    if (!container) return;
+
+    if (!container) {
+      return;
+    }
 
     const { scrollLeft, scrollWidth, clientWidth } = container;
 
@@ -40,7 +44,10 @@ export const HotPrice = ({ products = [] }: HotPriceProps) => {
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+
+    if (!container) {
+      return;
+    }
 
     checkScrollPosition();
     container.addEventListener('scroll', checkScrollPosition);
@@ -62,52 +69,52 @@ export const HotPrice = ({ products = [] }: HotPriceProps) => {
       const scrollAmount = clientWidth * 0.75;
 
       containerRef.current.scrollTo({
-        left: direction === 'left' ? scrollLeft - scrollAmount : scrollLeft + scrollAmount,
+        left:
+          direction === 'left'
+            ? scrollLeft - scrollAmount
+            : scrollLeft + scrollAmount,
         behavior: 'smooth',
       });
     }
   };
 
   return (
-  // загальна секція що вміщає тайтл, навігацію, картки
-  <section className={styles.section}>
-    <div className={styles.header}>
-      <h2 className={styles.sectionTitle}>Hot prices</h2>
+    // загальна секція що вміщає тайтл, навігацію, картки
+    <section className={styles.section}>
+      <div className={styles.header}>
+        <h2 className={styles.sectionTitle}>Hot prices</h2>
 
-      {/* кнопки-стрілки вліво та вправо */}
-      <div className={styles.buttons}>
-        <button
-          className={`${styles.arrowButton} ${!canScrollLeft ? styles.disabled : ''}`}
-          onClick={() => scroll('left')}
-          // блок елемента для запобігання зайвим клікам
-          disabled={!canScrollLeft}
-          aria-label="Scroll left"
-        >
-          ‹
-        </button>
-        <button
-          className={`${styles.arrowButton} ${!canScrollRight ? styles.disabled : ''}`}
-          onClick={() => scroll('right')}
-          disabled={!canScrollRight}
-          aria-label="Scroll right"
-        >
-          ›
-        </button>
+        {/* кнопки-стрілки вліво та вправо */}
+        <div className={styles.buttons}>
+          <button
+            className={`${styles.arrowButton} ${!canScrollLeft ? styles.disabled : ''}`}
+            onClick={() => scroll('left')}
+            // блок елемента для запобігання зайвим клікам
+            disabled={!canScrollLeft}
+            aria-label="Scroll left"
+          >
+            ‹
+          </button>
+          <button
+            className={`${styles.arrowButton} ${!canScrollRight ? styles.disabled : ''}`}
+            onClick={() => scroll('right')}
+            disabled={!canScrollRight}
+            aria-label="Scroll right"
+          >
+            ›
+          </button>
+        </div>
       </div>
-    </div>
 
-    <div
-      className={styles.cardsContainer}
-      ref={containerRef}
-    >
-      {displayedProducts.map(product => (
-        <ProductCard
-          key={product.id}
-          product={product}
-          price={product.price}
-        />
-      ))}
-    </div>
-  </section>
+      <div className={styles.cardsContainer} ref={containerRef}>
+        {displayedProducts.map(product => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            price={product.price}
+          />
+        ))}
+      </div>
+    </section>
   );
 };

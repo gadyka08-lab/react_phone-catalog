@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './BannerSlider.module.scss';
 
 export const BannerSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const banners = [
-    { id: 1, imgUrl: '/_old/v2/img/banner-accessories.png', alt: 'Accessories banner' },
+    {
+      id: 1,
+      imgUrl: '/_old/v2/img/banner-accessories.png',
+      alt: 'Accessories banner',
+    },
     { id: 2, imgUrl: '/_old/v2/img/banner-phones.png', alt: 'Phones banner' },
     { id: 3, imgUrl: '/_old/v2/img/banner-tablets.png', alt: 'Tablets banner' },
   ];
@@ -12,28 +16,29 @@ export const BannerSlider = () => {
   // для переходів слайдів
   const handleNext = () => {
     // викликаємо фцію оновлення стану, отримуємо prevIndex
-    setCurrentIndex((prevIndex) =>
+    setCurrentIndex(prevIndex =>
       // порівнюємо поточний індекс з індексом останнього елемента в масиві (banners.length - 1)
       prevIndex === banners.length - 1
-        // якщо це був останній, скидаємо на 0, тобто вертаємось в початок
-        ? 0
-        // якщоне останній слайд, збільшуємо поточний індекс на 1
-        : prevIndex + 1
+        ? // якщо це був останній, скидаємо на 0, тобто вертаємось в початок
+          0
+        : // якщо не останній слайд, збільшуємо поточний індекс на 1
+          prevIndex + 1,
     );
   };
+
   const handlePrev = () => {
     // викликаємо фцію оновлення стану, отримуємо prevIndex
-    setCurrentIndex((prevIndex) =>
+    setCurrentIndex(prevIndex =>
       // порівнюємо поточний індекс з індексом першого елемента в масиві (0)
       prevIndex === 0
-      // якщо це був перший, скидаємо на останній, тобто йдемо в кінець масиву
-      ? banners.length - 1
-      // якщо не перший слайд, зменшуємо поточний індекс на 1
-      : prevIndex - 1
+        ? // якщо це був перший, скидаємо на останній, тобто йдемо в кінець масиву
+          banners.length - 1
+        : // якщо не перший слайд, зменшуємо поточний індекс на 1
+          prevIndex - 1,
     );
-  }
+  };
 
-  // обробник натичкання клавіш для слайдера (стрілки вліво та вправо)
+  // обробник натискання клавіш для слайдера (стрілки вліво та вправо)
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'ArrowRight') {
       handleNext();
@@ -42,11 +47,22 @@ export const BannerSlider = () => {
     }
   };
 
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setCurrentIndex(prevIndex =>
+        prevIndex === banners.length - 1 ? 0 : prevIndex + 1,
+      );
+    }, 5000);
+
+    return () => window.clearInterval(intervalId);
+  }, [banners.length]);
+
   return (
     // семантичний контейнер для слайдера та рисочок-індикаторів
     <section className={styles.sliderWrapper}>
       <h1>Welcome to Nice Gadgets store!</h1>
-      <div className={styles.bannerSlider}
+      <div
+        className={styles.bannerSlider}
         tabIndex={0}
         onKeyDown={handleKeyDown}
       >

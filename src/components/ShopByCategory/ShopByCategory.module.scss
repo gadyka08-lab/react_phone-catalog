@@ -1,12 +1,13 @@
 .section {
+  overflow: hidden;
   display: flex;
   flex-direction: column;
+
+  box-sizing: border-box;
   width: 100%;
   max-width: 1200px;
   margin: 64px auto 0;
-  box-sizing: border-box;
   padding: 0 16px;
-  overflow: hidden;
 
   @media (min-width: 640px) {
     padding: 0 24px;
@@ -29,38 +30,43 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  background-color: transparent;
+
+  box-sizing: border-box;
+  width: 100%;
   padding: 0;
   border-radius: 8px;
+
+  background-color: transparent;
+
   transition: transform 0.3s ease;
-  width: 100%;
-  box-sizing: border-box;
+
+  &:hover {
+    cursor: pointer;
+    transform: translateY(-5px);
+  }
 
   @media (min-width: 640px) {
     flex: 1;
   }
-
-  &:hover {
-    transform: translateY(-5px);
-    cursor: pointer;
-  }
 }
 
 .imageWrapper {
+  overflow: hidden;
   display: flex;
-  justify-content: flex-end;
   align-items: flex-end;
+  justify-content: flex-end;
+
   width: 100%;
   border-radius: 8px;
-  overflow: hidden;
 }
 
 .img {
+  aspect-ratio: 1 / 1;
   width: 100%;
   max-width: 288px;
   height: auto;
+
   object-fit: cover;
-  aspect-ratio: 1 / 1;
   object-position: -20px 45px;
 
   @media (min-width: 640px) {
@@ -79,12 +85,13 @@
 }
 
 .title {
-  font-family: 'Mont', sans-serif;
-  font-weight: 700;
+  margin: 0;
+
+  font-family: Mont, sans-serif;
   font-size: 16px;
+  font-weight: 700;
   line-height: 120%;
   color: #212121;
-  margin: 0;
 
   @media (min-width: 640px) {
     font-size: 20px;
@@ -92,12 +99,13 @@
 }
 
 .categoryCard h3 {
-  font-family: 'Mont', sans-serif;
-  font-weight: 600;
+  margin: 0;
+
+  font-family: Mont, sans-serif;
   font-size: 12px;
+  font-weight: 600;
   line-height: 18px;
   color: #89939A;
-  margin: 0;
 
   @media (min-width: 640px) {
     font-size: 14px;

@@ -8,32 +8,71 @@ interface ProductCardProps {
   price?: number;
 }
 
-export const ProductCard = ({ product, price: salePrice }: ProductCardProps) => {
-  const [isInCart, setIsInCart] = useState(false);
-  const [isInFavorite, setIsInFavorite] = useState(false);
+export const ProductCard = ({
+  product,
+  price: salePrice,
+}: ProductCardProps) => {
+  const [isInFavorite, setIsInFavorite] = useState<boolean>(() => {
+    const savedInLocalStorageFav = localStorage.getItem('favourites');
+    const favouriteIds: string[] = savedInLocalStorageFav
+      ? JSON.parse(savedInLocalStorageFav)
+      : [];
 
-  const {
-    id,
-    itemId,
-    name,
-    fullPrice,
-    screen,
-    capacity,
-    ram,
-    year,
-    image
-  } = product;
+    return favouriteIds.includes(String(product.id));
+  });
 
-  const displayPrice = salePrice !== undefined ? salePrice : fullPrice;
-  const hasDiscount = salePrice !== undefined && salePrice < fullPrice;
+  const handleAddToFavorite = () => {
+    const savedInLocalStorageFav = localStorage.getItem('favourites');
+    const favouriteIds: string[] = savedInLocalStorageFav
+      ? JSON.parse(savedInLocalStorageFav)
+      : [];
+    const stringId = String(product.id);
+
+    let updatedIds;
+
+    if (favouriteIds.includes(stringId)) {
+      updatedIds = favouriteIds.filter(id => id !== stringId);
+    } else {
+      updatedIds = [...favouriteIds, stringId];
+    }
+
+    localStorage.setItem('favourites', JSON.stringify(updatedIds));
+    setIsInFavorite(!isInFavorite);
+  };
+
+  const [isInCart, setIsInCart] = useState<boolean>(() => {
+    const savedInLocalStorageCart = localStorage.getItem('cart');
+    const cartIds: string[] = savedInLocalStorageCart
+      ? JSON.parse(savedInLocalStorageCart)
+      : [];
+
+    return cartIds.includes(String(product.id));
+  });
 
   const handleAddToCart = () => {
+    const savedInLocalStorageCart = localStorage.getItem('cart');
+    const CartIds: string[] = savedInLocalStorageCart
+      ? JSON.parse(savedInLocalStorageCart)
+      : [];
+    const stringId = String(product.id);
+
+    let updatedIds;
+
+    if (CartIds.includes(stringId)) {
+      updatedIds = CartIds.filter(id => id !== stringId);
+    } else {
+      updatedIds = [...CartIds, stringId];
+    }
+
+    localStorage.setItem('cart', JSON.stringify(updatedIds));
     setIsInCart(!isInCart);
   };
 
-  const handleAddToFavorite = () => {
-    setIsInFavorite(!isInFavorite);
-  };
+  const { itemId, name, fullPrice, screen, capacity, ram, year, image } =
+    product;
+
+  const displayPrice = salePrice !== undefined ? salePrice : fullPrice;
+  const hasDiscount = salePrice !== undefined && salePrice < fullPrice;
 
   return (
     <div className={styles.productCard}>
@@ -56,9 +95,7 @@ export const ProductCard = ({ product, price: salePrice }: ProductCardProps) => 
       {/* обгортка ціни */}
       <div className={styles.priceWrapper}>
         <span className={styles.price}>${displayPrice}</span>
-        {hasDiscount && (
-          <span className={styles.fullPrice}>${fullPrice}</span>
-        )}
+        {hasDiscount && <span className={styles.fullPrice}>${fullPrice}</span>}
       </div>
 
       <div className={styles.divider} />
@@ -97,7 +134,11 @@ export const ProductCard = ({ product, price: salePrice }: ProductCardProps) => 
           aria-label="Favorites"
         >
           <img
-            src={isInFavorite ? "/img/icons/Favourites Filled (Heart Like).png" : "/img/icons/Favourites (Heart Like).png"}
+            src={
+              isInFavorite
+                ? '/img/icons/Favourites Filled (Heart Like).png'
+                : '/img/icons/Favourites (Heart Like).png'
+            }
             alt="Favorite icon"
             className={styles.favoriteIcon}
           />

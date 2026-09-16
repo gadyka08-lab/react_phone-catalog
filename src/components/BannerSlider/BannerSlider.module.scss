@@ -2,10 +2,11 @@
 .sliderWrapper {
   display: flex;
   flex-direction: column;
+
+  box-sizing: border-box;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  box-sizing: border-box;
   padding: 0 16px;
 
   @media (min-width: 640px) {
@@ -16,16 +17,18 @@
 // контейнер самого слайдера (картинки та кнопки)
 .bannerSlider {
   position: relative;
+
+  overflow: hidden;
+
+  box-sizing: border-box;
+  aspect-ratio: 1 / 1;
   width: 100%;
   height: auto;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  box-sizing: border-box;
   border-radius: 8px;
 
   @media (min-width: 640px) {
-    height: 300px;
     aspect-ratio: unset;
+    height: 300px;
     padding-right: 48px;
     padding-left: 48px;
   }
@@ -37,27 +40,29 @@
 
 // контейнер зі всіма слайдами в баннері
 .slides {
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+
+  overflow-x: auto;
   display: flex;
+
   width: 100%;
   height: 100%;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory; // прилипання до країв слайдів при скролі
-  scrollbar-width: none;
 
   &::-webkit-scrollbar {
     display: none;
   }
 
   @media (min-width: 640px) {
-    overflow-x: hidden;
     scroll-snap-type: none;
+    overflow-x: hidden;
   }
 }
 
 .slide {
+  scroll-snap-align: start;
   min-width: 100%;
   height: 100%;
-  scroll-snap-align: start; // точка фіксації на початку слайда
 
   img {
     width: 100%;
@@ -67,26 +72,27 @@
 }
 
 // кнопки перемикання слайдів (вліво та вправо)
-.prevButton,
-.nextButton {
-  position: absolute; // позиція поверх банера
+.prevButton {
+  cursor: pointer;
+
+  position: absolute;
+  z-index: 10;
   top: 0;
-  display: none; // за замовчуванням приховані
+  left: 0;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
   width: 32px;
   height: 100%;
-  z-index: 10;
-  background-color: transparent;
   border: none;
-  color: #313237;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  align-items: center; // центр. стрілку по вертикалі
-  justify-content: center; // центр. стрілку по горизонталі
 
-  // стрілки видно починаючи з таблетів
-  @media (min-width: 640px) {
-    display: flex;
-  }
+  color: #313237;
+
+  background-color: transparent;
+
+  transition: background-color 0.3s ease;
 
   &:hover {
     background-color: rgba(49, 50, 55, 0.1);
@@ -95,32 +101,66 @@
   &:active {
     background-color: rgba(49, 50, 55, 0.2);
   }
-}
 
-.prevButton {
-  left: 0;
+  @media (min-width: 640px) {
+    display: flex;
+  }
 }
 
 .nextButton {
+  cursor: pointer;
+
+  position: absolute;
+  z-index: 10;
+  top: 0;
   right: 0;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 100%;
+  border: none;
+
+  color: #313237;
+
+  background-color: transparent;
+
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: rgba(49, 50, 55, 0.1);
+  }
+
+  &:active {
+    background-color: rgba(49, 50, 55, 0.2);
+  }
+
+  @media (min-width: 640px) {
+    display: flex;
+  }
 }
 
 // контейнер для нижніх індикаторів-рисочок
 .dots {
-  display: flex; // ставимо рисочки в один рядок
+  display: flex;
   gap: 8px;
-  justify-content: center; // центруємо горизонтально під слайдером
+  justify-content: center;
   margin-top: 12px;
 }
 
 .dot {
+  cursor: pointer;
+
   width: 14px;
   height: 4px;
-  background-color: #e2e8f0;
+  padding: 0;
   border: none;
   border-radius: 2px;
-  padding: 0;
-  cursor: pointer;
+
+  background-color: #e2e8f0;
+
   transition: background-color 0.3s ease, width 0.3s ease;
 
   &:hover {
