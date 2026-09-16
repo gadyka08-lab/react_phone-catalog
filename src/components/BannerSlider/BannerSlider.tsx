@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './BannerSlider.module.scss';
 
 export const BannerSlider = () => {
@@ -15,26 +15,14 @@ export const BannerSlider = () => {
 
   // для переходів слайдів
   const handleNext = () => {
-    // викликаємо фцію оновлення стану, отримуємо prevIndex
     setCurrentIndex(prevIndex =>
-      // порівнюємо поточний індекс з індексом останнього елемента в масиві (banners.length - 1)
-      prevIndex === banners.length - 1
-        ? // якщо це був останній, скидаємо на 0, тобто вертаємось в початок
-          0
-        : // якщо не останній слайд, збільшуємо поточний індекс на 1
-          prevIndex + 1,
+      prevIndex === banners.length - 1 ? 0 : prevIndex + 1,
     );
   };
 
   const handlePrev = () => {
-    // викликаємо фцію оновлення стану, отримуємо prevIndex
     setCurrentIndex(prevIndex =>
-      // порівнюємо поточний індекс з індексом першого елемента в масиві (0)
-      prevIndex === 0
-        ? // якщо це був перший, скидаємо на останній, тобто йдемо в кінець масиву
-          banners.length - 1
-        : // якщо не перший слайд, зменшуємо поточний індекс на 1
-          prevIndex - 1,
+      prevIndex === 0 ? banners.length - 1 : prevIndex - 1,
     );
   };
 
@@ -58,7 +46,6 @@ export const BannerSlider = () => {
   }, [banners.length]);
 
   return (
-    // семантичний контейнер для слайдера та рисочок-індикаторів
     <section className={styles.sliderWrapper}>
       <h1>Welcome to Nice Gadgets store!</h1>
       <div

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.scss';
 import { Footer } from './components/Footer/Footer';
@@ -7,6 +7,7 @@ import { Product } from './types/Product';
 import { ProductDetails } from './types/productsDetails';
 // Сторінки
 import { HomePage } from './pages/HomePage/HomePage';
+// prettier-ignore
 // eslint-disable-next-line max-len
 import { ProductDetailsPage } from './pages/ProductDetailsPage/ProductDetailsPage';
 import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
@@ -25,7 +26,7 @@ export const App = () => {
     fetch('/api/products.json')
       .then(res => res.json())
       .then(data => setProducts(data))
-      // eslint-disable-next-line no-console
+
       .catch(error => console.error('Помилка завантаження товарів:', error));
 
     // завантаження детальних даних з усіх категорій
@@ -38,7 +39,7 @@ export const App = () => {
         setProductDetails([...phones, ...tablets, ...accessories]);
       })
       .catch(error =>
-        // eslint-disable-next-line no-console
+
         console.error('Помилка завантаження детальних товарів:', error),
       );
   }, []);
