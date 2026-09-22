@@ -34,7 +34,7 @@ export const CartItem: React.FC<CartItemProps> = ({
 
       <Link to={`/product/${itemId}`} className={styles.imageLink}>
         <img
-          src={image.startsWith('/') ? image : `/${image}`}
+          src={image.startsWith('/') ? image : `./${image}`}
           alt={name}
           className={styles.image}
         />

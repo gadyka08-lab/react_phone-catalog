@@ -6,11 +6,11 @@ export const BannerSlider = () => {
   const banners = [
     {
       id: 1,
-      imgUrl: '/_old/v2/img/banner-accessories.png',
+      imgUrl: './_old/v2/img/banner-accessories.png',
       alt: 'Accessories banner',
     },
-    { id: 2, imgUrl: '/_old/v2/img/banner-phones.png', alt: 'Phones banner' },
-    { id: 3, imgUrl: '/_old/v2/img/banner-tablets.png', alt: 'Tablets banner' },
+    { id: 2, imgUrl: './_old/v2/img/banner-phones.png', alt: 'Phones banner' },
+    { id: 3, imgUrl: './_old/v2/img/banner-tablets.png', alt: 'Tablets banner' },
   ];
 
   // для переходів слайдів

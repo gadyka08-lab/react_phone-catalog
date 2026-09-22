@@ -79,7 +79,7 @@ export const ProductCard = ({
       {/* обгортка зображення з посиланням */}
       <Link to={`/product/${itemId}`} className={styles.imageContainer}>
         <img
-          src={image.startsWith('/') ? image : `/${image}`}
+          src={image.startsWith('/') ? image : `./${image}`}
           alt={name}
           className={styles.image}
         />
@@ -136,8 +136,8 @@ export const ProductCard = ({
           <img
             src={
               isInFavorite
-                ? '/img/icons/Favourites Filled (Heart Like).png'
-                : '/img/icons/Favourites (Heart Like).png'
+                ? './img/icons/Favourites Filled (Heart Like).png'
+                : './img/icons/Favourites (Heart Like).png'
             }
             alt="Favorite icon"
             className={styles.favoriteIcon}

@@ -36,7 +36,7 @@ export const Header: React.FC = () => {
         {/* ліва частина: лого та десктопна навігація */}
         <div className={styles.leftContainer}>
           <Link to="/" className={styles.logoLink} onClick={closeMenu}>
-            <img src="/img/icons/Logo.png" alt="Nice Gadgets logo" />
+            <img src="./img/icons/Logo.png" alt="Nice Gadgets logo" />
           </Link>
           <nav className={styles.nav}>
             {navLinks.map(({ to, label }) => (
@@ -65,12 +65,12 @@ export const Header: React.FC = () => {
               }
             >
               <img
-                src="/img/icons/Favourites (Heart Like).png"
+                src="./img/icons/Favourites (Heart Like).png"
                 alt="Favorites"
               />
             </NavLink>
             <Link to="/cart" className={styles.iconLink}>
-              <img src="/img/icons/Shopping bag (Cart).png" alt="Cart" />
+              <img src="./img/icons/Shopping bag (Cart).png" alt="Cart" />
               {totalItemsCount > 0 && (
                 <span className={styles.badge}>{totalItemsCount}</span>
               )}
@@ -81,7 +81,7 @@ export const Header: React.FC = () => {
             onClick={toggleMenu}
             aria-label="Toggle menu"
           >
-            <img src="/img/icons/Union.png" alt="Menu" />
+            <img src="./img/icons/Union.png" alt="Menu" />
           </button>
         </div>
       </div>
@@ -90,7 +90,7 @@ export const Header: React.FC = () => {
       <div className={`${styles.menuOverlay} ${isMenuOpen ? styles.open : ''}`}>
         <div className={styles.menuHeader}>
           <Link to="/" className={styles.logoLink} onClick={closeMenu}>
-            <img src="/img/icons/Logo.png" alt="Nice Gadgets logo" />
+            <img src="./img/icons/Logo.png" alt="Nice Gadgets logo" />
           </Link>
           <button
             className={styles.closeButton}
@@ -124,10 +124,10 @@ export const Header: React.FC = () => {
             className={styles.footerIcon}
             onClick={closeMenu}
           >
-            <img src="/img/icons/Favourites (Heart Like).png" alt="Favorites" />
+            <img src="./img/icons/Favourites (Heart Like).png" alt="Favorites" />
           </Link>
           <Link to="/cart" className={styles.footerIcon} onClick={closeMenu}>
-            <img src="/img/icons/Shopping bag (Cart).png" alt="Shopping bag" />
+            <img src="./img/icons/Shopping bag (Cart).png" alt="Shopping bag" />
           </Link>
         </div>
       </div>

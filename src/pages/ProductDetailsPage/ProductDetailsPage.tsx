@@ -124,7 +124,7 @@ export const ProductDetailsPage = ({
         </Link>
         <div className={styles.notFound}>
           <img
-            src="/img/product-not-found.png"
+            src="./img/product-not-found.png"
             alt="Product not found"
             className={styles.notFoundImage}
           />
@@ -181,7 +181,7 @@ export const ProductDetailsPage = ({
         <div className={styles.contentGrid}>
           <div className={styles.gallery}>
             <img
-              src={`/${product.images?.[selectedImage]}`}
+              src={`./${product.images?.[selectedImage]}`}
               alt={`${product.name}`}
               className={styles.mainImage}
             />
@@ -189,7 +189,7 @@ export const ProductDetailsPage = ({
               {product.images?.map((imgUrl: string, index: number) => (
                 <img
                   key={imgUrl}
-                  src={`/${imgUrl}`}
+                  src={`./${imgUrl}`}
                   alt={`${product.name} thumbnail ${index}`}
                   onClick={() => setSelectedImage(index)}
                   className={`${styles.thumbnail} ${selectedImage === index ? styles.active : ''}`}
@@ -276,8 +276,8 @@ export const ProductDetailsPage = ({
                   <img
                     src={
                       isInFavorite
-                        ? '/img/icons/Favourites Filled (Heart Like).png'
-                        : '/img/icons/Favourites (Heart Like).png'
+                        ? './img/icons/Favourites Filled (Heart Like).png'
+                        : './img/icons/Favourites (Heart Like).png'
                     }
                     alt="Favorite icon"
                     className={styles.favoriteIcon}

@@ -38,7 +38,7 @@ export const CartPage = ({ products = [] }: CartPageProps) => {
       {productsInCart.length === 0 ? (
         <div className={styles.emptyState}>
           <p>Your cart is empty!</p>
-          <img src="/img/cart-is-empty.png" alt="No products in cart" />
+          <img src="./img/cart-is-empty.png" alt="No products in cart" />
         </div>
       ) : (
         <div className={styles.cartContent}>

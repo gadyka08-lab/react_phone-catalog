@@ -11,19 +11,19 @@ export const ShopByCategory: React.FC = () => {
   const categories = [
     {
       name: 'Mobile phones',
-      image: '/img/category-phones.png',
+      image: './img/category-phones.png',
       bgColor: '#3d3c3e',
       count: `${phonesCount} models`
     },
     {
       name: 'Tablets',
-      image: '/img/category-tablets.png',
+      image: './img/category-tablets.png',
       bgColor: '#8C8C8C',
       count: `${tabletsCount} models`
     },
     {
       name: 'Accessories',
-      image: '/img/category-accessories.png',
+      image: './img/category-accessories.png',
       bgColor: '#AE4554',
       count: `${accessoriesCount} models`
     },

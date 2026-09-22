@@ -106,7 +106,7 @@ export const FavouritesPage = ({ products = [] }: FavouritesPageProps) => {
         </Link>
         <div className={styles.notFound}>
           <img
-            src="/img/product-not-found.png"
+            src="./img/product-not-found.png"
             alt="Product not found"
             className={styles.notFoundImage}
           />
@@ -125,7 +125,7 @@ export const FavouritesPage = ({ products = [] }: FavouritesPageProps) => {
       {favouriteProducts.length === 0 ? (
         <div className={styles.emptyState}>
           <p>There are no favourite products</p>
-          <img src="/img/product-not-found.png" alt="No favourites" />
+          <img src="./img/product-not-found.png" alt="No favourites" />
         </div>
       ) : (
         <>

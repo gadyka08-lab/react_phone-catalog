@@ -46,7 +46,6 @@ export const BrandNewModels = ({ products = [] }: BrandNewModelsProps) => {
     };
   }, [displayedProducts]);
 
-  // 🛑 Перевірка перенесена ПІСЛЯ всіх хуків
   if (displayedProducts.length === 0) {
     return null;
   }

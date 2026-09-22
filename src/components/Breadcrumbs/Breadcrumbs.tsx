@@ -19,11 +19,11 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
         {/* посилання на головну сторінку у вигляді іконки*/}
         <li className={styles.item}>
           <Link to="/" className={styles.homeLink}>
-            <img src="/img/icons/Home.png" aria-label="Home" />
+            <img src="./img/icons/Home.png" aria-label="Home" />
           </Link>
         </li>
 
-        {/* перебираємо масив додаткових кроків (категорія => товар) */}
+        {/* перебираємо масив. додаткових кроків (категорія => товар) */}
         {items.map((item, index) => {
           // опред. чи є цей елемент останнім у масиві
           const isLast = index === items.length - 1;
