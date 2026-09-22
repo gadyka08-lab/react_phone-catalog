@@ -23,7 +23,7 @@ export const App = () => {
 
   useEffect(() => {
     // завантаження загального списку для головної сторінки
-    fetch('/api/products.json')
+    fetch('./api/products.json')
       .then(res => res.json())
       .then(data => setProducts(data))
 
