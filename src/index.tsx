@@ -6,7 +6,7 @@ import { CartProvider } from './Context/CartContext';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <CartProvider>
-    <BrowserRouter basename="/react_phone-catalog/">
+    <BrowserRouter basename={import.meta.env.DEV ? '/' : '/react_phone-catalog/'}>
       <App />
     </BrowserRouter>
   </CartProvider>,
