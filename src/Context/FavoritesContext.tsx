@@ -14,13 +14,13 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [favorites, setFavorites] = useState<string[]>(() => {
-    const saved = localStorage.getItem('favorites');
+    const saved = localStorage.getItem('favourites');
 
     return saved ? JSON.parse(saved) : [];
   });
 
   useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favorites));
+    localStorage.setItem('favourites', JSON.stringify(favorites));
   }, [favorites]);
 
   const toggleFavorite = (id: string | number) => {

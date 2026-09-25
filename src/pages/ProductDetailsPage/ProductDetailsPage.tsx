@@ -51,13 +51,11 @@ export const ProductDetailsPage = ({
       String(bp.id) === productId,
   );
 
-  // Підключаємо хуки контекстів з оригінальними назвами
   const { cartItems, addToCart, handleRemove } = useCart();
-  const { favorites, toggleFavorite } = useFavorites(); // Використовуй той метод, що є в твоєму FavoritesContext
+  const { favorites, toggleFavorite } = useFavorites();
 
   const [selectedImage, setSelectedImage] = useState(0);
 
-  // Перевірка наявності товарів (порівнюємо ID як рядки)
   const currentId = String(baseProduct?.id || product?.id || productId);
   const isInCart = cartItems.some(item => String(item.id) === currentId);
   const isInFavorite = favorites.includes(currentId);
@@ -124,7 +122,7 @@ export const ProductDetailsPage = ({
         </Link>
         <div className={styles.notFound}>
           <img
-            src="./img/product-not-found.png"
+            src="/img/product-not-found.png"
             alt="Product not found"
             className={styles.notFoundImage}
           />
@@ -134,7 +132,6 @@ export const ProductDetailsPage = ({
     );
   }
 
-  // Обробники з використанням оригінальних методів
   const handleAddToCartClick = () => {
     if (baseProduct) {
       if (isInCart) {
@@ -181,7 +178,7 @@ export const ProductDetailsPage = ({
         <div className={styles.contentGrid}>
           <div className={styles.gallery}>
             <img
-              src={`./${product.images?.[selectedImage]}`}
+              src={`/${product.images?.[selectedImage]}`}
               alt={`${product.name}`}
               className={styles.mainImage}
             />
@@ -189,7 +186,7 @@ export const ProductDetailsPage = ({
               {product.images?.map((imgUrl: string, index: number) => (
                 <img
                   key={imgUrl}
-                  src={`./${imgUrl}`}
+                  src={`/${imgUrl}`}
                   alt={`${product.name} thumbnail ${index}`}
                   onClick={() => setSelectedImage(index)}
                   className={`${styles.thumbnail} ${selectedImage === index ? styles.active : ''}`}
@@ -276,8 +273,8 @@ export const ProductDetailsPage = ({
                   <img
                     src={
                       isInFavorite
-                        ? './img/icons/Favourites Filled (Heart Like).png'
-                        : './img/icons/Favourites (Heart Like).png'
+                        ? '/img/icons/Favourites Filled (Heart Like).png'
+                        : '/img/icons/Favourites (Heart Like).png'
                     }
                     alt="Favorite icon"
                     className={styles.favoriteIcon}
@@ -374,7 +371,7 @@ export const ProductDetailsPage = ({
 
           <div className={styles.recommendedSlider} ref={containerRef}>
             {recommendedItems.map(item => (
-              <ProductCard key={item.id} product={item} price={item.price} />
+              <ProductCard key={item.id} product={item} />
             ))}
           </div>
         </div>

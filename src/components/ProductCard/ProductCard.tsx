@@ -1,7 +1,8 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './ProductCard.module.scss';
 import { Product } from '../../types/Product';
+import { useFavorites } from '../../Context/FavoritesContext';
+import { useCart } from '../../Context/CartContext';
 
 interface ProductCardProps {
   product: Product;
@@ -12,60 +13,18 @@ export const ProductCard = ({
   product,
   price: salePrice,
 }: ProductCardProps) => {
-  const [isInFavorite, setIsInFavorite] = useState<boolean>(() => {
-    const savedInLocalStorageFav = localStorage.getItem('favourites');
-    const favouriteIds: string[] = savedInLocalStorageFav
-      ? JSON.parse(savedInLocalStorageFav)
-      : [];
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const isInFavorite = isFavorite(product.id);
 
-    return favouriteIds.includes(String(product.id));
-  });
-
-  const handleAddToFavorite = () => {
-    const savedInLocalStorageFav = localStorage.getItem('favourites');
-    const favouriteIds: string[] = savedInLocalStorageFav
-      ? JSON.parse(savedInLocalStorageFav)
-      : [];
-    const stringId = String(product.id);
-
-    let updatedIds;
-
-    if (favouriteIds.includes(stringId)) {
-      updatedIds = favouriteIds.filter(id => id !== stringId);
-    } else {
-      updatedIds = [...favouriteIds, stringId];
-    }
-
-    localStorage.setItem('favourites', JSON.stringify(updatedIds));
-    setIsInFavorite(!isInFavorite);
-  };
-
-  const [isInCart, setIsInCart] = useState<boolean>(() => {
-    const savedInLocalStorageCart = localStorage.getItem('cart');
-    const cartIds: string[] = savedInLocalStorageCart
-      ? JSON.parse(savedInLocalStorageCart)
-      : [];
-
-    return cartIds.includes(String(product.id));
-  });
+  const { cartItems, addToCart, handleRemove } = useCart();
+  const isInCart = cartItems.some(item => item.id === String(product.id));
 
   const handleAddToCart = () => {
-    const savedInLocalStorageCart = localStorage.getItem('cart');
-    const CartIds: string[] = savedInLocalStorageCart
-      ? JSON.parse(savedInLocalStorageCart)
-      : [];
-    const stringId = String(product.id);
-
-    let updatedIds;
-
-    if (CartIds.includes(stringId)) {
-      updatedIds = CartIds.filter(id => id !== stringId);
+    if (isInCart) {
+      handleRemove(product.id);
     } else {
-      updatedIds = [...CartIds, stringId];
+      addToCart(product.id);
     }
-
-    localStorage.setItem('cart', JSON.stringify(updatedIds));
-    setIsInCart(!isInCart);
   };
 
   const { itemId, name, fullPrice, screen, capacity, ram, year, image } =
@@ -74,12 +33,14 @@ export const ProductCard = ({
   const displayPrice = salePrice !== undefined ? salePrice : fullPrice;
   const hasDiscount = salePrice !== undefined && salePrice < fullPrice;
 
+  const imageUrl = image.startsWith('/') ? image : `/${image}`;
+
   return (
     <div className={styles.productCard}>
       {/* обгортка зображення з посиланням */}
       <Link to={`/product/${itemId}`} className={styles.imageContainer}>
         <img
-          src={image.startsWith('/') ? image : `./${image}`}
+          src={imageUrl}
           alt={name}
           className={styles.image}
         />
@@ -130,14 +91,14 @@ export const ProductCard = ({
         </button>
         <button
           className={`${styles.favoriteButton} ${isInFavorite ? styles.activeFavorite : ''}`}
-          onClick={handleAddToFavorite}
+          onClick={() => toggleFavorite(product.id)}
           aria-label="Favorites"
         >
           <img
             src={
               isInFavorite
-                ? './img/icons/Favourites Filled (Heart Like).png'
-                : './img/icons/Favourites (Heart Like).png'
+                ? '/img/icons/Favourites Filled (Heart Like).png'
+                : '/img/icons/Favourites (Heart Like).png'
             }
             alt="Favorite icon"
             className={styles.favoriteIcon}

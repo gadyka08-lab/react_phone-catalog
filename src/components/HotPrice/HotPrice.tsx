@@ -111,7 +111,6 @@ export const HotPrice = ({ products = [] }: HotPriceProps) => {
           <ProductCard
             key={product.id}
             product={product}
-            price={product.price}
           />
         ))}
       </div>

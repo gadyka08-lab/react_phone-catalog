@@ -212,7 +212,7 @@ export const PhonesPage = ({ products }: PhonesPageProps) => {
       {/* сітка товарів */}
       <div className={styles.grid}>
         {currentPhones.map(phone => (
-          <ProductCard product={phone} key={phone.id} price={phone.price} />
+          <ProductCard product={phone} key={phone.id} />
         ))}
       </div>
 

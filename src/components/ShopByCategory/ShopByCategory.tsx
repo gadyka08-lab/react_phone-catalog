@@ -1,9 +1,8 @@
-import { useEffect } from 'react';
-import React, { useState } from 'react';
-import styles from './ShopByCategory.module.scss'; // 📦 Імпортуємо стилі як модуль
+import React, { useState, useEffect } from 'react';
+import styles from './ShopByCategory.module.scss';
 
 export const ShopByCategory: React.FC = () => {
- // стани для кількості товарів кожної категорії
+  // стани для кількості товарів кожної категорії
   const [phonesCount, setPhonesCount] = useState<number>(0);
   const [tabletsCount, setTabletsCount] = useState<number>(0);
   const [accessoriesCount, setAccessoriesCount] = useState<number>(0);
@@ -11,19 +10,19 @@ export const ShopByCategory: React.FC = () => {
   const categories = [
     {
       name: 'Mobile phones',
-      image: './img/category-phones.png',
+      image: '/img/category-phones.png',
       bgColor: '#3d3c3e',
       count: `${phonesCount} models`
     },
     {
       name: 'Tablets',
-      image: './img/category-tablets.png',
+      image: '/img/category-tablets.png',
       bgColor: '#8C8C8C',
       count: `${tabletsCount} models`
     },
     {
       name: 'Accessories',
-      image: './img/category-accessories.png',
+      image: '/img/category-accessories.png',
       bgColor: '#AE4554',
       count: `${accessoriesCount} models`
     },
@@ -53,6 +52,7 @@ export const ShopByCategory: React.FC = () => {
 
     fetchCounts();
   }, []);
+
   return (
     <section className={styles.section}>
       <h2 className={styles.sectionTitle}>Shop by Category</h2>

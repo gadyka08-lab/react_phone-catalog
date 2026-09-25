@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.scss';
 import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
 import { Product } from './types/Product';
 import { ProductDetails } from './types/productsDetails';
-// Сторінки
 import { HomePage } from './pages/HomePage/HomePage';
-// prettier-ignore
-// eslint-disable-next-line max-len
 import { ProductDetailsPage } from './pages/ProductDetailsPage/ProductDetailsPage';
 import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
 import { PhonesPage } from './pages/PhonesPage/PhonesPage';
@@ -22,14 +19,11 @@ export const App = () => {
   const [productDetails, setProductDetails] = useState<ProductDetails[]>([]);
 
   useEffect(() => {
-    // завантаження загального списку для головної сторінки
-    fetch('./api/products.json')
+    fetch('/api/products.json')
       .then(res => res.json())
       .then(data => setProducts(data))
-
       .catch(error => console.error('Помилка завантаження товарів:', error));
 
-    // завантаження детальних даних з усіх категорій
     Promise.all([
       fetch('/api/phones.json').then(res => res.json()),
       fetch('/api/tablets.json').then(res => res.json()),
@@ -39,7 +33,6 @@ export const App = () => {
         setProductDetails([...phones, ...tablets, ...accessories]);
       })
       .catch(error =>
-
         console.error('Помилка завантаження детальних товарів:', error),
       );
   }, []);

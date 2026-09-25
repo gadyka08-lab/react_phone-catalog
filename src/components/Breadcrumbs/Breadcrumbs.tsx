@@ -19,7 +19,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
         {/* посилання на головну сторінку у вигляді іконки*/}
         <li className={styles.item}>
           <Link to="/" className={styles.homeLink}>
-            <img src="./img/icons/Home.png" aria-label="Home" />
+            <img src="/img/icons/Home.png" alt="" aria-label="Home" />
           </Link>
         </li>
 

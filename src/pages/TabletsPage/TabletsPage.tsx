@@ -212,7 +212,7 @@ export const TabletsPage = ({ products }: TabletsPageProps) => {
       {/* сітка товарів */}
       <div className={styles.grid}>
         {currentTablets.map(tablet => (
-          <ProductCard product={tablet} key={tablet.id} price={tablet.price} />
+          <ProductCard product={tablet} key={tablet.id} />
         ))}
       </div>
 

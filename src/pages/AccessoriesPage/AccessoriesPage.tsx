@@ -216,7 +216,7 @@ export const AccessoriesPage = ({ products }: AccessoriesPageProps) => {
       {/* сітка товарів */}
       <div className={styles.grid}>
         {currentAccessories.map(access => (
-          <ProductCard product={access} key={access.id} price={access.price} />
+          <ProductCard product={access} key={access.id} />
         ))}
       </div>
 

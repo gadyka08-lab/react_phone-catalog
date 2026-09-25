@@ -98,7 +98,6 @@ export const BrandNewModels = ({ products = [] }: BrandNewModelsProps) => {
         <ProductCard
           key={product.id}
           product={product}
-          price={undefined}
         />
       ))}
     </div>

@@ -9,12 +9,20 @@ interface CartPageProps {
 }
 
 export const CartPage = ({ products = [] }: CartPageProps) => {
-  const { cartItems, handleIncrease, handleDecrease, handleRemove, checkout } =
-    useCart();
+  const {
+    cartItems,
+    handleIncrease,
+    handleDecrease,
+    handleRemove,
+    checkout,
+    totalItemsCount
+  } = useCart();
 
   const productsInCart = cartItems
     .map(cartItem => {
-      const product = products.find(p => String(p.id) === cartItem.id);
+      const product = products.find(
+        p => String(p.id) === cartItem.id || String(p.itemId) === cartItem.id
+      );
 
       return product ? { ...product, quantity: cartItem.quantity } : null;
     })
@@ -22,11 +30,6 @@ export const CartPage = ({ products = [] }: CartPageProps) => {
 
   const totalAmount = productsInCart.reduce(
     (sum, p) => sum + p.price * p.quantity,
-    0,
-  );
-
-  const totalItemsCount = cartItems.reduce(
-    (sum, item) => sum + item.quantity,
     0,
   );
 
@@ -38,7 +41,7 @@ export const CartPage = ({ products = [] }: CartPageProps) => {
       {productsInCart.length === 0 ? (
         <div className={styles.emptyState}>
           <p>Your cart is empty!</p>
-          <img src="./img/cart-is-empty.png" alt="No products in cart" />
+          <img src="/img/cart-is-empty.png" alt="No products in cart" />
         </div>
       ) : (
         <div className={styles.cartContent}>

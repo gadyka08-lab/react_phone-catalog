@@ -21,6 +21,8 @@ export const CartItem: React.FC<CartItemProps> = ({
 }) => {
   const { itemId, name, price, image } = product;
 
+  const imageUrl = image.startsWith('/') ? image : `/${image}`;
+
   return (
     <div className={styles.cartItem}>
       <button
@@ -34,7 +36,7 @@ export const CartItem: React.FC<CartItemProps> = ({
 
       <Link to={`/product/${itemId}`} className={styles.imageLink}>
         <img
-          src={image.startsWith('/') ? image : `./${image}`}
+          src={imageUrl}
           alt={name}
           className={styles.image}
         />

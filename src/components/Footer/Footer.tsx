@@ -16,7 +16,7 @@ export const Footer: React.FC = () => {
       <div className={styles.container}>
         {/* лого у футері, як в хедері */}
         <Link to="/" className={styles.logoLink}>
-          <img src="./img/icons/Logo.png" alt="Nice Gadgets logo" />
+          <img src="/img/icons/Logo.png" alt="Nice Gadgets logo" />
         </Link>
 
         {/* посилання та розділи */}
@@ -52,7 +52,7 @@ export const Footer: React.FC = () => {
             onClick={scrollToTop}
             aria-label="Back to top"
           >
-            <img src="./img/icons/Slider button - Default (right).png" alt="Scroll to top" />
+            <img src="/img/icons/Slider button - Default (right).png" alt="Scroll to top" />
           </button>
         </div>
       </div>
