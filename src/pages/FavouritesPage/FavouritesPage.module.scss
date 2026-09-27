@@ -1,4 +1,4 @@
-// Загальний тег h1 перенесено вище перед .container h1
+
 h1 {
   margin-bottom: 8px;
   font-size: 32px;
@@ -73,7 +73,7 @@ h1 {
   }
 }
 
-// Базовий селектор .arrow перенесено вище перед .dropdownButton
+
 .arrow {
   width: 16px;
   height: 16px;
@@ -160,53 +160,6 @@ h1 {
 
   @media (min-width: 1200px) {
     grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.pagination {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  justify-content: center;
-
-  margin-top: 40px;
-}
-
-.pageButton {
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 32px;
-  height: 32px;
-  border: 1px solid #b4bdc3;
-  border-radius: 50%;
-
-  font-size: 14px;
-  font-weight: 600;
-  color: #0f0f11;
-
-  background-color: transparent;
-
-  transition: all 0.3s;
-
-  // Спочатку менш специфічний стан disabled
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.4;
-  }
-
-  // Потім складніший стан hover
-  &:hover:not(:disabled) {
-    border-color: #0f0f11;
-  }
-
-  &.active {
-    border-color: #0f0f11;
-    color: #fff;
-    background-color: #0f0f11;
   }
 }
 

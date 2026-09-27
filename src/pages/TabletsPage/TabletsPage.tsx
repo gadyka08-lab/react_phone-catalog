@@ -5,6 +5,7 @@ import { ProductCard } from '../../components/ProductCard/ProductCard';
 import { ProductDetails } from '../../types/productsDetails';
 import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 import { useSearchParams } from 'react-router-dom';
+import { Pagination } from '../../components/Pagination/Pagination';
 
 interface TabletsPageProps {
   products: Product[];
@@ -62,12 +63,12 @@ export const TabletsPage = ({ products }: TabletsPageProps) => {
     const newParams = new URLSearchParams(searchParams);
 
     if (option === 'year') {
-      newParams.delete('sort'); // дефолтне значення не додаємо в URL
+      newParams.delete('sort');
     } else {
       newParams.set('sort', option);
     }
 
-    newParams.set('page', '1'); // при зміні сортування повертаємось на 1 сторінку
+    newParams.set('page', '1');
     setSearchParams(newParams);
     setIsSortOpen(false);
   };
@@ -78,12 +79,12 @@ export const TabletsPage = ({ products }: TabletsPageProps) => {
     const newParams = new URLSearchParams(searchParams);
 
     if (option === '16') {
-      newParams.delete('perPage'); // дефолтне значення (16) видаляємо з URL
+      newParams.delete('perPage');
     } else {
       newParams.set('perPage', option);
     }
 
-    newParams.set('page', '1'); // при зміні кількості елементів кидаємо на 1 сторінку
+    newParams.set('page', '1');
     setSearchParams(newParams);
     setIsItemsPerPageOpen(false);
   };
@@ -123,7 +124,7 @@ export const TabletsPage = ({ products }: TabletsPageProps) => {
 
       {/* дропдауни */}
       <div className={styles.controls}>
-        {/* сорт */}
+        {/* сортування */}
         <div className={styles.controlGroup}>
           <span>Sort by</span>
           <div className={styles.dropdownContainer}>
@@ -216,42 +217,12 @@ export const TabletsPage = ({ products }: TabletsPageProps) => {
         ))}
       </div>
 
-      {/* кноки пагінації */}
-      {totalPages > 1 && (
-        <div className={styles.pagination}>
-          <button
-            className={styles.pageButton}
-            onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
-            disabled={currentPage === 1}
-          >
-            &lt;
-          </button>
-
-          {Array.from({ length: totalPages }, (_, index) => {
-            const pageNumber = index + 1;
-
-            return (
-              <button
-                key={pageNumber}
-                className={`${styles.pageButton} ${currentPage === pageNumber ? styles.active : ''}`}
-                onClick={() => handlePageChange(pageNumber)}
-              >
-                {pageNumber}
-              </button>
-            );
-          })}
-
-          <button
-            className={styles.pageButton}
-            onClick={() =>
-              handlePageChange(Math.min(currentPage + 1, totalPages))
-            }
-            disabled={currentPage === totalPages}
-          >
-            &gt;
-          </button>
-        </div>
-      )}
+      {/* компонент пагінації */}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 };

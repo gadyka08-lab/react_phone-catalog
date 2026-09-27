@@ -5,6 +5,7 @@ import { ProductCard } from '../../components/ProductCard/ProductCard';
 import { ProductDetails } from '../../types/productsDetails';
 import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 import { useSearchParams } from 'react-router-dom';
+import { Pagination } from '../../components/Pagination/Pagination'; // імпортуємо новий компонент пагінації
 
 interface AccessoriesPageProps {
   products: Product[];
@@ -221,41 +222,11 @@ export const AccessoriesPage = ({ products }: AccessoriesPageProps) => {
       </div>
 
       {/* кноки пагінації */}
-      {totalPages > 1 && (
-        <div className={styles.pagination}>
-          <button
-            className={styles.pageButton}
-            onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
-            disabled={currentPage === 1}
-          >
-            &lt;
-          </button>
-
-          {Array.from({ length: totalPages }, (_, index) => {
-            const pageNumber = index + 1;
-
-            return (
-              <button
-                key={pageNumber}
-                className={`${styles.pageButton} ${currentPage === pageNumber ? styles.active : ''}`}
-                onClick={() => handlePageChange(pageNumber)}
-              >
-                {pageNumber}
-              </button>
-            );
-          })}
-
-          <button
-            className={styles.pageButton}
-            onClick={() =>
-              handlePageChange(Math.min(currentPage + 1, totalPages))
-            }
-            disabled={currentPage === totalPages}
-          >
-            &gt;
-          </button>
-        </div>
-      )}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 };

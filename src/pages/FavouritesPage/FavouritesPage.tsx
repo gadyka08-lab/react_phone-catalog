@@ -5,6 +5,7 @@ import { ProductCard } from '../../components/ProductCard/ProductCard';
 import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 import { Link } from 'react-router-dom';
 import { useFavorites } from '../../Context/FavoritesContext';
+import { Pagination } from '../../components/Pagination/Pagination';
 
 interface FavouritesPageProps {
   products: Product[];
@@ -81,6 +82,10 @@ export const FavouritesPage = ({ products = [] }: FavouritesPageProps) => {
     setItemsPerPage(option === 'all' ? 'all' : Number(option));
     setIsItemsPerPageOpen(false);
     setCurrentPage(1);
+  };
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
   };
 
   const getSortLabel = (type: string) => {
@@ -235,41 +240,11 @@ export const FavouritesPage = ({ products = [] }: FavouritesPageProps) => {
           </div>
 
           {/* кнопки пагінації */}
-          {totalPages > 1 && (
-            <div className={styles.pagination}>
-              <button
-                className={styles.pageButton}
-                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
-              >
-                &lt;
-              </button>
-
-              {Array.from({ length: totalPages }, (_, index) => {
-                const pageNumber = index + 1;
-
-                return (
-                  <button
-                    key={pageNumber}
-                    className={`${styles.pageButton} ${currentPage === pageNumber ? styles.active : ''}`}
-                    onClick={() => setCurrentPage(pageNumber)}
-                  >
-                    {pageNumber}
-                  </button>
-                );
-              })}
-
-              <button
-                className={styles.pageButton}
-                onClick={() =>
-                  setCurrentPage(prev => Math.min(prev + 1, totalPages))
-                }
-                disabled={currentPage === totalPages}
-              >
-                &gt;
-              </button>
-            </div>
-          )}
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
         </>
       )}
     </div>
