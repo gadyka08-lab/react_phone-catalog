@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styles from './Header.module.scss';
 import { useFavorites } from '../../Context/FavoritesContext';
-import { useCart } from '../../Context/CartContext'; 
+import { useCart } from '../../Context/CartContext';
 
 const navLinks = [
   { to: '/', label: 'Home' },
@@ -39,7 +39,7 @@ export const Header: React.FC = () => {
         {/* ліва частина: лого та десктопна навігація */}
         <div className={styles.leftContainer}>
           <Link to="/" className={styles.logoLink} onClick={closeMenu}>
-            <img src="/img/icons/Logo.png" alt="Nice Gadgets logo" />
+            <img src="img/icons/Logo.png" alt="Nice Gadgets logo" />
           </Link>
           <nav className={styles.nav}>
             {navLinks.map(({ to, label }) => (
@@ -67,13 +67,13 @@ export const Header: React.FC = () => {
                   : styles.iconLink
               }
             >
-              <img src="/img/icons/Favourites (Heart Like).png" alt="Favorites" />
+              <img src="img/icons/Favourites (Heart Like).png" alt="Favorites" />
               {favoritesCount > 0 && (
                 <span className={styles.badge}>{favoritesCount}</span>
               )}
             </NavLink>
             <Link to="/cart" className={styles.iconLink}>
-              <img src="/img/icons/Shopping bag (Cart).png" alt="Cart" />
+              <img src="img/icons/Shopping bag (Cart).png" alt="Cart" />
               {totalItemsCount > 0 && (
                 <span className={styles.badge}>{totalItemsCount}</span>
               )}
@@ -84,7 +84,7 @@ export const Header: React.FC = () => {
             onClick={toggleMenu}
             aria-label="Toggle menu"
           >
-            <img src="/img/icons/Union.png" alt="Menu" />
+            <img src="img/icons/Union.png" alt="Menu" />
           </button>
         </div>
       </div>
@@ -93,7 +93,7 @@ export const Header: React.FC = () => {
       <div className={`${styles.menuOverlay} ${isMenuOpen ? styles.open : ''}`}>
         <div className={styles.menuHeader}>
           <Link to="/" className={styles.logoLink} onClick={closeMenu}>
-            <img src="/img/icons/Logo.png" alt="Nice Gadgets logo" />
+            <img src="img/icons/Logo.png" alt="Nice Gadgets logo" />
           </Link>
           <button
             className={styles.closeButton}
