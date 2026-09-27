@@ -19,7 +19,7 @@ export const App = () => {
   const [productDetails, setProductDetails] = useState<ProductDetails[]>([]);
 
   useEffect(() => {
-    fetch('/api/products.json')
+    fetch('api/products.json')
       .then(res => res.json())
       .then(data => setProducts(data))
       .catch(error => console.error('Помилка завантаження товарів:', error));

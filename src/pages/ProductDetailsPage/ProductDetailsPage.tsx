@@ -121,11 +121,11 @@ export const ProductDetailsPage = ({
           &lt; Back to home
         </Link>
         <div className={styles.notFound}>
-          <img
-            src="/img/product-not-found.png"
-            alt="Product not found"
-            className={styles.notFoundImage}
-          />
+       <img
+          src="img/product-not-found.png"
+          alt="Product not found"
+          className={styles.notFoundImage}
+        />
           <h2>Product not found</h2>
         </div>
       </div>
@@ -178,15 +178,15 @@ export const ProductDetailsPage = ({
         <div className={styles.contentGrid}>
           <div className={styles.gallery}>
             <img
-              src={`/${product.images?.[selectedImage]}`}
-              alt={`${product.name}`}
+              src={product.images?.[selectedImage]}
+              alt={product.name}
               className={styles.mainImage}
             />
             <div className={styles.thumbnails}>
               {product.images?.map((imgUrl: string, index: number) => (
                 <img
                   key={imgUrl}
-                  src={`/${imgUrl}`}
+                  src={`${import.meta.env.BASE_URL}${imgUrl}`}
                   alt={`${product.name} thumbnail ${index}`}
                   onClick={() => setSelectedImage(index)}
                   className={`${styles.thumbnail} ${selectedImage === index ? styles.active : ''}`}
@@ -272,10 +272,10 @@ export const ProductDetailsPage = ({
                 >
                   <img
                     src={
-                      isInFavorite
-                        ? '/img/icons/Favourites Filled (Heart Like).png'
-                        : '/img/icons/Favourites (Heart Like).png'
-                    }
+                        isInFavorite
+                          ? 'img/icons/Favourites Filled (Heart Like).png'
+                          : 'img/icons/Favourites (Heart Like).png'
+                      }
                     alt="Favorite icon"
                     className={styles.favoriteIcon}
                   />

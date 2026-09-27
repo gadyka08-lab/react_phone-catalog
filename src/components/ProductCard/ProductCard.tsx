@@ -33,8 +33,8 @@ export const ProductCard = ({
   const displayPrice = salePrice !== undefined ? salePrice : fullPrice;
   const hasDiscount = salePrice !== undefined && salePrice < fullPrice;
 
-  const imageUrl = image.startsWith('/') ? image : `/${image}`;
-
+  const imageUrl = image.startsWith('/') ? image.substring(1) : image;
+  
   return (
     <div className={styles.productCard}>
       {/* обгортка зображення з посиланням */}
