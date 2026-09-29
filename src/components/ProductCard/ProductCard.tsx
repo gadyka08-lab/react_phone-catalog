@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './ProductCard.module.scss';
 import { Product } from '../../types/Product';
@@ -34,7 +35,7 @@ export const ProductCard = ({
   const hasDiscount = salePrice !== undefined && salePrice < fullPrice;
 
   const imageUrl = image.startsWith('/') ? image.substring(1) : image;
-  
+
   return (
     <div className={styles.productCard}>
       {/* обгортка зображення з посиланням */}

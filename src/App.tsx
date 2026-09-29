@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.scss';
@@ -25,9 +26,9 @@ export const App = () => {
       .catch(error => console.error('Помилка завантаження товарів:', error));
 
     Promise.all([
-      fetch('/api/phones.json').then(res => res.json()),
-      fetch('/api/tablets.json').then(res => res.json()),
-      fetch('/api/accessories.json').then(res => res.json()),
+      fetch('api/phones.json').then(res => res.json()),
+      fetch('api/tablets.json').then(res => res.json()),
+      fetch('api/accessories.json').then(res => res.json()),
     ])
       .then(([phones, tablets, accessories]) => {
         setProductDetails([...phones, ...tablets, ...accessories]);
