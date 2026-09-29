@@ -47,7 +47,7 @@ export const BannerSlider = () => {
 
   return (
     <section className={styles.sliderWrapper}>
-      <h1>Welcome to Nice Gadgets store!</h1>
+      <h2>Welcome to Nice Gadgets store!</h2>
       <div
         className={styles.bannerSlider}
         tabIndex={0}
