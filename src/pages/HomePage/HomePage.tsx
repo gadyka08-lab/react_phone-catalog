@@ -13,7 +13,7 @@ interface HomePageProps {
 export const HomePage = ({ products }: HomePageProps) => {
   return (
     <>
-      <h1 className={styles.visuallyHidden}>Product CatalogWelcome to Nice Gadgets store!</h1>
+      <h1 className={styles.visuallyHidden}>Product Catalog</h1>
       <BannerSlider />
       <BrandNewModels products={products} />
       <ShopByCategory />

@@ -1,3 +1,4 @@
+import React from 'react';
 import { useRef, useState, useEffect } from 'react';
 import { ProductCard } from '../ProductCard/ProductCard';
 import { Product } from '../../types/Product';

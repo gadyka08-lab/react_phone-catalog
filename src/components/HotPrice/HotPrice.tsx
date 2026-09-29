@@ -1,3 +1,4 @@
+import React from 'react';
 import { useRef, useState, useEffect } from 'react';
 import { ProductCard } from '../ProductCard/ProductCard';
 import { Product } from '../../types/Product';
@@ -107,12 +108,13 @@ export const HotPrice = ({ products = [] }: HotPriceProps) => {
       </div>
 
       <div className={styles.cardsContainer} ref={containerRef}>
-        {displayedProducts.map(product => (
+          {displayedProducts.map(product => (
           <ProductCard
             key={product.id}
             product={product}
+            price={product.price}
           />
-        ))}
+          ))}
       </div>
     </section>
   );

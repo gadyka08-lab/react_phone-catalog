@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Product } from '../../types/Product';
 import styles from './FavouritesPage.module.scss';

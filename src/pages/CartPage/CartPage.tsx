@@ -1,3 +1,4 @@
+import React from 'react';
 import { Product } from '../../types/Product';
 import styles from './CartPage.module.scss';
 import { CartItem } from '../../components/CartItem/CartItem';

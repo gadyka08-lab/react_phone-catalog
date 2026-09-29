@@ -22,7 +22,7 @@ export const CartItem: React.FC<CartItemProps> = ({
   const { itemId, name, price, image } = product;
 
   const imageUrl = image.startsWith('/') ? image.substring(1) : image;
-  
+
   return (
     <div className={styles.cartItem}>
       <button
