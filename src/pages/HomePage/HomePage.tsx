@@ -1,3 +1,4 @@
+import React from 'react';
 import { BannerSlider } from '../../components/BannerSlider/BannerSlider';
 import { BrandNewModels } from '../../components/BrandNewModels/BrandNewModels';
 import { ShopByCategory } from '../../components/ShopByCategory/ShopByCategory';
@@ -12,7 +13,7 @@ interface HomePageProps {
 export const HomePage = ({ products }: HomePageProps) => {
   return (
     <>
-      <h1 className={styles.visuallyHidden}>Product Catalog</h1>
+      <h1 className={styles.visuallyHidden}>Product CatalogWelcome to Nice Gadgets store!</h1>
       <BannerSlider />
       <BrandNewModels products={products} />
       <ShopByCategory />
