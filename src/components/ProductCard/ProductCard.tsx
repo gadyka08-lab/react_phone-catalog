@@ -98,8 +98,8 @@ export const ProductCard = ({
           <img
             src={
               isInFavorite
-                ? '/img/icons/Favourites Filled (Heart Like).png'
-                : '/img/icons/Favourites (Heart Like).png'
+                ? 'img/icons/Favourites Filled (Heart Like).png'
+                : 'img/icons/Favourites (Heart Like).png'
             }
             alt="Favorite icon"
             className={styles.favoriteIcon}

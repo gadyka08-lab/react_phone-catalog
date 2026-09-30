@@ -37,6 +37,9 @@ const colorMap: Record<string, string> = {
   spaceblack: '#2E2E30',
 };
 
+// для очищення слеша на початку шляху
+const getCleanPath = (path: string) => (path.startsWith('/') ? path.slice(1) : path);
+
 export const ProductDetailsPage = ({
   products,
   baseProducts = [],
@@ -122,11 +125,11 @@ export const ProductDetailsPage = ({
           &lt; Back to home
         </Link>
         <div className={styles.notFound}>
-       <img
-          src="img/product-not-found.png"
-          alt="Product not found"
-          className={styles.notFoundImage}
-        />
+         <img
+            src="img/product-not-found.png"
+            alt="Product not found"
+            className={styles.notFoundImage}
+         />
           <h2>Product not found</h2>
         </div>
       </div>
@@ -179,7 +182,7 @@ export const ProductDetailsPage = ({
         <div className={styles.contentGrid}>
           <div className={styles.gallery}>
             <img
-              src={product.images?.[selectedImage]}
+              src={getCleanPath(product.images?.[selectedImage] || '')}
               alt={product.name}
               className={styles.mainImage}
             />
@@ -187,7 +190,7 @@ export const ProductDetailsPage = ({
               {product.images?.map((imgUrl: string, index: number) => (
                 <img
                   key={imgUrl}
-                  src={`${import.meta.env.BASE_URL}${imgUrl}`}
+                  src={getCleanPath(imgUrl)}
                   alt={`${product.name} thumbnail ${index}`}
                   onClick={() => setSelectedImage(index)}
                   className={`${styles.thumbnail} ${selectedImage === index ? styles.active : ''}`}

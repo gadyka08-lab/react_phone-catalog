@@ -16,13 +16,15 @@ export const CartPage = ({ products = [] }: CartPageProps) => {
     handleDecrease,
     handleRemove,
     checkout,
-    totalItemsCount
+    totalItemsCount,
   } = useCart();
 
   const productsInCart = cartItems
     .map(cartItem => {
       const product = products.find(
-        p => String(p.id) === cartItem.id || String(p.itemId) === cartItem.id
+        p =>
+          String(p.id) === String(cartItem.id) ||
+          String(p.itemId) === String(cartItem.id)
       );
 
       return product ? { ...product, quantity: cartItem.quantity } : null;
@@ -42,7 +44,7 @@ export const CartPage = ({ products = [] }: CartPageProps) => {
       {productsInCart.length === 0 ? (
         <div className={styles.emptyState}>
           <p>Your cart is empty!</p>
-          <img src="/img/cart-is-empty.png" alt="No products in cart" />
+          <img src="img/cart-is-empty.png" alt="No products in cart" />
         </div>
       ) : (
         <div className={styles.cartContent}>
