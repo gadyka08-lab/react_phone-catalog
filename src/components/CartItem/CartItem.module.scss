@@ -1,25 +1,33 @@
 .cartItem {
   display: flex;
-  gap: 16px;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  gap: 12px;
 
-  padding: 16px 24px;
+  padding: 16px;
   border: 1px solid #e2e8f0;
-
   background-color: #fff;
+  width: 100%;
+  box-sizing: border-box;
+
+  @media (min-width: 640px) {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 16px 24px;
+  }
 
   .removeButton {
+    order: 1;
     cursor: pointer;
-
     border: none;
-
     font-size: 16px;
     color: #b4bdc3;
-
     background: none;
-
     transition: color 0.2s;
+
+    @media (min-width: 640px) {
+      order: 0;
+    }
 
     &:hover {
       color: #313237;
@@ -44,18 +52,19 @@
 
   .titleLink {
     flex: 1;
-    min-width: 150px;
+    min-width: 120px;
     text-decoration: none;
 
     .title {
       overflow: hidden;
       display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
       color: #313237;
+
+      @media (min-width: 640px) {
+        font-size: 14px;
+      }
 
       &:hover {
         color: #757679;
@@ -67,10 +76,14 @@
     display: flex;
     gap: 12px;
     align-items: center;
+    order: 2;
+
+    @media (min-width: 640px) {
+      order: 0;
+    }
 
     .counterButton {
       cursor: pointer;
-
       display: flex;
       align-items: center;
       justify-content: center;
@@ -78,11 +91,8 @@
       width: 32px;
       height: 32px;
       border: 1px solid #b4bdc3;
-
       font-size: 16px;
-
       background: #fff;
-
       transition: all 0.2s;
 
       &:disabled {
@@ -98,7 +108,6 @@
 
     .counterValue {
       min-width: 16px;
-
       font-size: 14px;
       font-weight: 600;
       color: #313237;
@@ -107,11 +116,18 @@
   }
 
   .price {
-    min-width: 80px;
-
-    font-size: 22px;
+    order: 3;
+    font-size: 20px;
     font-weight: 800;
     color: #313237;
-    text-align: right;
+    margin-left: auto;
+
+    @media (min-width: 640px) {
+      order: 0;
+      min-width: 80px;
+      font-size: 22px;
+      text-align: right;
+      margin-left: 0;
+    }
   }
 }

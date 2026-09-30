@@ -16,7 +16,6 @@ export const CartPage = ({ products = [] }: CartPageProps) => {
     handleDecrease,
     handleRemove,
     checkout,
-    totalItemsCount,
   } = useCart();
 
   const productsInCart = cartItems
@@ -33,6 +32,11 @@ export const CartPage = ({ products = [] }: CartPageProps) => {
 
   const totalAmount = productsInCart.reduce(
     (sum, p) => sum + p.price * p.quantity,
+    0,
+  );
+
+  const totalItemsCount = productsInCart.reduce(
+    (sum, p) => sum + Number(p.quantity || 0),
     0,
   );
 

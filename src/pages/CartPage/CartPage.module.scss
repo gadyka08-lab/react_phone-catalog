@@ -1,7 +1,14 @@
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 24px 80px;
+  padding: 0 16px 60px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+
+  @media (min-width: 640px) {
+    padding: 0 24px 80px;
+  }
 }
 
 .cartContent {
@@ -21,6 +28,8 @@
   flex: 1;
   flex-direction: column;
   gap: 16px;
+  width: 100%;
+  min-width: 0;
 }
 
 .checkoutBox {
@@ -30,14 +39,22 @@
 
   box-sizing: border-box;
   width: 100%;
-  padding: 32px 24px;
+  padding: 24px 16px;
   border: 1px solid #e2e8f0;
+
+  @media (min-width: 640px) {
+    padding: 32px 24px;
+  }
 
   .totalPrice {
     margin-bottom: 8px;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 800;
     color: #313237;
+
+    @media (min-width: 640px) {
+      font-size: 32px;
+    }
   }
 
   .totalItems {
@@ -70,4 +87,5 @@
     top: 100px;
     max-width: 368px;
   }
+
 }
